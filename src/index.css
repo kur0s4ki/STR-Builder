@@ -18,6 +18,15 @@
   .border-3 {
     border-width: 3px;
   }
+
+  /* Responsive text sizing for currency displays */
+  .currency-display {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+
+  .currency-label {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
 }
 
 @layer base {

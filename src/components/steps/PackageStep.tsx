@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Building, Building2, Check } from 'lucide-react';
+import { Armchair, Key, Crown, Check } from 'lucide-react';
 import type { Package } from '../../types';
 
 interface PackageStepProps {
@@ -20,7 +20,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Professional photography',
         'Complete turnkey solution'
       ],
-      icon: Home,
+      icon: Armchair,
       color: 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2]',
       borderColor: 'border-[#2F80ED]',
       bgColor: 'bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10'
@@ -36,7 +36,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Cost-effective option',
         'Flexible customization'
       ],
-      icon: Building,
+      icon: Key,
       color: 'bg-gradient-to-r from-[#112F57] to-[#2F80ED]',
       borderColor: 'border-[#112F57]',
       bgColor: 'bg-gradient-to-br from-[#112F57]/10 to-[#2F80ED]/10'
@@ -52,7 +52,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Higher revenue potential',
         'Premium market positioning'
       ],
-      icon: Building2,
+      icon: Crown,
       color: 'bg-gradient-to-r from-[#0B1224] to-[#112F57]',
       borderColor: 'border-[#0B1224]',
       bgColor: 'bg-gradient-to-br from-[#0B1224]/10 to-[#112F57]/10'
@@ -61,6 +61,15 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
 
   return (
     <div className="space-y-6">
+      {/* Logo Section */}
+      <div className="flex justify-center mb-8">
+        <img
+          src="/assets/images/logo.png"
+          alt="STR Launch Logo"
+          className="h-20 w-auto"
+        />
+      </div>
+
       <div className="text-center">
         <h3 className="text-lg font-semibold text-slate-900 mb-2">
           Choose Your Investment Package
@@ -90,7 +99,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
               {/* Selection Indicator */}
               {isSelected && (
                 <div className="absolute top-4 right-4">
-                  <div className="bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full p-1 shadow-lg animate-pulse">
+                  <div className="bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full p-1 shadow-lg">
                     <Check className="h-4 w-4 text-white" />
                   </div>
                 </div>

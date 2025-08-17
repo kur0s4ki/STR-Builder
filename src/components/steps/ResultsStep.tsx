@@ -67,9 +67,14 @@ export function ResultsStep({
             <DollarSign className="h-4 w-4 text-[#2F80ED]" />
             <span className="text-sm font-medium text-[#0B1224]">Total Investment</span>
           </div>
-          <p className="text-2xl font-bold text-[#0B1224]">
-            {formatValue(totalInvestment)} CAD
-          </p>
+          <div className="flex items-baseline gap-1">
+            <span className="currency-display font-bold text-[#0B1224] leading-none">
+              {formatValue(totalInvestment)}
+            </span>
+            <span className="currency-label font-medium text-[#0B1224] leading-none">
+              CAD
+            </span>
+          </div>
         </div>
 
         <div className="bg-gradient-to-br from-[#56CCF2]/10 to-[#2F80ED]/10 rounded-lg p-4 border border-[#56CCF2]/30 backdrop-blur-sm">
@@ -77,9 +82,14 @@ export function ResultsStep({
             <TrendingUp className="h-4 w-4 text-[#56CCF2]" />
             <span className="text-sm font-medium text-[#0B1224]">Monthly Net</span>
           </div>
-          <p className="text-2xl font-bold text-[#0B1224]">
-            {formatValue(monthlyNet)} CAD
-          </p>
+          <div className="flex items-baseline gap-1">
+            <span className="currency-display font-bold text-[#0B1224] leading-none">
+              {formatValue(monthlyNet)}
+            </span>
+            <span className="currency-label font-medium text-[#0B1224] leading-none">
+              CAD
+            </span>
+          </div>
         </div>
 
         <div className="bg-gradient-to-br from-[#112F57]/10 to-[#2F80ED]/10 rounded-lg p-4 border border-[#112F57]/30 backdrop-blur-sm">
@@ -87,9 +97,16 @@ export function ResultsStep({
             <Calendar className="h-4 w-4 text-[#112F57]" />
             <span className="text-sm font-medium text-[#0B1224]">ROI Timeline</span>
           </div>
-          <p className="text-2xl font-bold text-[#0B1224]">
-            {roiTimeline === 'N/A' ? 'N/A' : `${formatValue(roiTimeline)} mo`}
-          </p>
+          <div className="flex items-baseline gap-1">
+            <span className="currency-display font-bold text-[#0B1224] leading-none">
+              {roiTimeline === 'N/A' ? 'N/A' : formatValue(roiTimeline)}
+            </span>
+            {roiTimeline !== 'N/A' && (
+              <span className="currency-label font-medium text-[#0B1224] leading-none">
+                mo
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="bg-gradient-to-br from-[#0B1224]/10 to-[#112F57]/10 rounded-lg p-4 border border-[#0B1224]/30 backdrop-blur-sm">
@@ -97,9 +114,11 @@ export function ResultsStep({
             <Percent className="h-4 w-4 text-[#0B1224]" />
             <span className="text-sm font-medium text-[#0B1224]">Year 1 ROI</span>
           </div>
-          <p className="text-2xl font-bold text-[#0B1224]">
-            {formatValue(year1ROI, true)}
-          </p>
+          <div className="flex items-baseline gap-1">
+            <span className="currency-display font-bold text-[#0B1224] leading-none">
+              {formatValue(year1ROI, true)}
+            </span>
+          </div>
         </div>
       </div>
 
