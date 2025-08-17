@@ -15,8 +15,8 @@ interface StepperProgressProps {
 
 export function StepperProgress({ steps, currentStep, onStepClick }: StepperProgressProps) {
   return (
-    <div className="flex items-center justify-center overflow-x-auto">
-      <div className="flex items-center min-w-max px-2">
+    <div className="flex items-center justify-center">
+      <div className="flex items-center">
         {steps.map((step, index) => {
           const isCompleted = currentStep > step.id;
           const isCurrent = currentStep === step.id;
