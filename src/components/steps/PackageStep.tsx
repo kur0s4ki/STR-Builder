@@ -62,16 +62,16 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
   return (
     <div className="space-y-6">
       {/* Logo Section */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-6 sm:mb-8">
         <img
           src="/assets/images/logo.png"
           alt="STR Launch Logo"
-          className="h-20 w-auto"
+          className="h-16 sm:h-20 w-auto"
         />
       </div>
 
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-slate-900 mb-2">
+        <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
           Choose Your Investment Package
         </h3>
         <p className="text-slate-600">
@@ -79,17 +79,17 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {packages.map((pkg) => {
           const Icon = pkg.icon;
           const isSelected = selectedPackage === pkg.id;
-          
+
           return (
             <button
               key={pkg.id}
               onClick={() => onPackageChange(pkg.id)}
               className={`
-                relative p-6 rounded-xl border-2 transition-all duration-300 text-left h-full
+                relative p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 transition-all duration-300 text-left h-full min-h-[200px] sm:min-h-[auto]
                 ${isSelected
                   ? `border-[#2F80ED] bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 shadow-xl transform scale-105 ring-2 ring-[#2F80ED]/30`
                   : 'border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white/90 backdrop-blur-sm hover:scale-102'
@@ -98,7 +98,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
             >
               {/* Selection Indicator */}
               {isSelected && (
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
                   <div className="bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full p-1 shadow-lg">
                     <Check className="h-4 w-4 text-white" />
                   </div>
@@ -106,22 +106,22 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
               )}
 
               {/* Package Icon */}
-              <div className={`${pkg.color} p-3 rounded-lg w-fit mb-4`}>
-                <Icon className="h-6 w-6 text-white" />
+              <div className={`${pkg.color} p-2 sm:p-3 rounded-lg w-fit mb-3 sm:mb-4`}>
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
 
               {/* Package Info */}
-              <div className="mb-4">
-                <h4 className="font-semibold text-slate-900 mb-1">{pkg.name}</h4>
+              <div className="mb-3 sm:mb-4">
+                <h4 className="font-semibold text-slate-900 mb-1 text-base sm:text-lg">{pkg.name}</h4>
                 <p className="text-sm text-slate-600">{pkg.description}</p>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-2">
+              <ul className="space-y-1.5 sm:space-y-2">
                 {pkg.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-slate-600">
                     <div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-2 flex-shrink-0" />
-                    {feature}
+                    <span className="leading-relaxed">{feature}</span>
                   </li>
                 ))}
               </ul>

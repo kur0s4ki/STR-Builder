@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom breakpoint for extra small screens */
+@media (min-width: 475px) {
+  .xs\:inline {
+    display: inline;
+  }
+  .xs\:hidden {
+    display: none;
+  }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets on mobile */
+  button, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  input[type="number"], input[type="text"], input[type="email"], textarea {
+    font-size: 16px;
+  }
+
+  /* Better scrolling on mobile */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  /* Hide scrollbars on mobile for cleaner look */
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+  }
+}
+
 @layer utilities {
   .bg-gradient-radial {
     background-image: radial-gradient(circle, var(--tw-gradient-stops));

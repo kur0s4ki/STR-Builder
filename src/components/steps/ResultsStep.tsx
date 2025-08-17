@@ -63,7 +63,7 @@ export function ResultsStep({
   const renderSummaryTab = () => (
     <div className="space-y-6">
       {/* Key Metrics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-4 border border-[#2F80ED]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign className="h-4 w-4 text-[#2F80ED]" />
@@ -157,16 +157,16 @@ export function ResultsStep({
         <div className="bg-gradient-to-r from-[#56CCF2]/10 to-[#2F80ED]/10 px-6 py-4 border-b border-gray-200/50">
           <h4 className="font-semibold text-[#0B1224]">3-Year Profit Projection</h4>
         </div>
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="p-4 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {[1, 2, 3].map(year => {
               const yearProfit = profitResults.rows.find(r => r.label.includes(`Year ${year}`))?.cadAmount || 0;
               const yearROI = profitResults.rows.find(r => r.label.includes(`ROI % (Year ${year})`))?.cadAmount || 0;
 
               return (
-                <div key={year} className="text-center p-4 bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg border border-[#2F80ED]/20">
+                <div key={year} className="text-center p-3 sm:p-4 bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg border border-[#2F80ED]/20">
                   <p className="text-sm font-medium text-[#0B1224] mb-2">Year {year}</p>
-                  <p className="text-lg font-bold text-[#2F80ED] mb-1">
+                  <p className="text-base sm:text-lg font-bold text-[#2F80ED] mb-1">
                     {formatValue(yearProfit)} CAD
                   </p>
                   <p className="text-sm text-[#112F57]">
@@ -199,17 +199,17 @@ export function ResultsStep({
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <table className="w-full min-w-[600px]">
           <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#2F80ED]/5">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Description
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 CAD Amount
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 USD Amount
               </th>
             </tr>
@@ -228,13 +228,13 @@ export function ResultsStep({
                     hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-6 py-4 text-sm text-[#0B1224]">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
                     {row.label}
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono text-[#2F80ED] font-semibold">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
                     {formatValue(row.cadAmount)} CAD
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono text-[#112F57]">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#112F57] whitespace-nowrap">
                     {row.usdAmount !== null ? `${formatValue(row.usdAmount)} USD` : '—'}
                   </td>
                 </tr>
@@ -257,17 +257,17 @@ export function ResultsStep({
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <table className="w-full min-w-[600px]">
           <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#56CCF2]/5">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Metric
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 CAD Value
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 USD Value
               </th>
             </tr>
@@ -287,10 +287,10 @@ export function ResultsStep({
                     hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-6 py-4 text-sm text-[#0B1224]">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
                     {row.label}
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono text-[#2F80ED] font-semibold">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
                     {isROI
                       ? formatValue(row.cadAmount, true)
                       : isTimeline
@@ -298,7 +298,7 @@ export function ResultsStep({
                         : formatValue(row.cadAmount) + (isROI || isTimeline ? "" : " CAD")
                     }
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono text-[#112F57]">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#112F57] whitespace-nowrap">
                     {row.usdAmount !== null ? `${formatValue(row.usdAmount)} USD` : '—'}
                   </td>
                 </tr>
@@ -313,17 +313,17 @@ export function ResultsStep({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-slate-900 mb-2">
+        <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
           Investment Analysis Complete
         </h3>
-        <p className="text-slate-600">
+        <p className="text-sm sm:text-base text-slate-600">
           Review your investment breakdown, profit projections, and ROI analysis
         </p>
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-gray-200/50">
-        <nav className="flex justify-center">
+      <div className="border-b border-gray-200/50 overflow-x-auto">
+        <nav className="flex justify-center min-w-max">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
@@ -331,15 +331,16 @@ export function ResultsStep({
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
-                  flex-1 flex items-center justify-center gap-2 py-3 px-4 border-b-2 font-medium text-sm transition-all duration-200
+                  flex-1 flex items-center justify-center gap-1 sm:gap-2 py-3 px-2 sm:px-4 border-b-2 font-medium text-xs sm:text-sm transition-all duration-200 min-h-[44px] whitespace-nowrap
                   ${activeTab === tab.id
                     ? 'border-[#2F80ED] text-[#2F80ED] bg-gradient-to-r from-[#2F80ED]/5 to-[#56CCF2]/5'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50/50'
                   }
                 `}
               >
-                <Icon className="h-4 w-4" />
-                {tab.label}
+                <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden xs:inline">{tab.label}</span>
+                <span className="xs:hidden">{tab.label.split(' ')[0]}</span>
               </button>
             );
           })}

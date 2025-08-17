@@ -60,7 +60,7 @@ export function NumberInput({
 
   return (
     <div>
-      <label className={`block text-sm font-medium text-gray-700 mb-2 ${labelClassName}`}>
+      <label className={`block text-sm sm:text-sm font-medium text-gray-700 mb-2 ${labelClassName}`}>
         {label}
       </label>
       <div className="relative">
@@ -76,19 +76,19 @@ export function NumberInput({
           autoCorrect="off"
           spellCheck="false"
           className={`
-            w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm
+            w-full px-3 sm:px-4 py-3 sm:py-3 border border-gray-300 rounded-lg shadow-sm text-base sm:text-base min-h-[44px]
             focus:ring-2 focus:ring-[#2F80ED] focus:border-[#2F80ED]
             placeholder:text-gray-400 transition-all duration-200
             bg-white/90 backdrop-blur-sm
             [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
             hover:border-gray-400 hover:shadow-md
-            ${currency ? 'pr-12' : ''}
+            ${currency ? 'pr-16 sm:pr-12' : ''}
             ${className}
           `}
         />
         {currency && (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <span className="text-sm font-medium text-[#112F57] bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-2 py-1 rounded border border-[#2F80ED]/20">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:pr-3 pointer-events-none">
+            <span className="text-xs sm:text-sm font-medium text-[#112F57] bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-1.5 sm:px-2 py-1 rounded border border-[#2F80ED]/20">
               {currency}
             </span>
           </div>

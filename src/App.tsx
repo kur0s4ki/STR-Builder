@@ -199,28 +199,28 @@ function App() {
 
       {/* Progress Bar */}
       <div className="bg-[#0B1224] border-b border-[#112F57]/50 relative z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
           <StepperProgress steps={STEPS} currentStep={currentStep} onStepClick={handleStepClick} />
         </div>
       </div>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 overflow-hidden">
+      <main className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 relative z-10">
+        <div className="bg-white/95 backdrop-blur-sm rounded-lg sm:rounded-xl shadow-2xl border border-white/20 overflow-hidden">
           {/* Step Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {renderStepContent()}
           </div>
 
           {/* Navigation */}
           {currentStep < 4 && (
-            <div className="bg-white/50 backdrop-blur-sm px-6 py-4 border-t border-gray-200/30">
-              <div className="flex items-center justify-between">
+            <div className="bg-white/50 backdrop-blur-sm px-4 sm:px-6 py-4 border-t border-gray-200/30">
+              <div className="flex items-center justify-between gap-3">
                 <button
                   onClick={handlePrevious}
                   disabled={currentStep === 1}
                   className={`
-                    flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-200 font-medium
+                    flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 font-medium min-h-[44px] min-w-[44px] text-sm sm:text-base
                     ${currentStep === 1
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-gray-300 hover:to-gray-400 shadow-md hover:shadow-lg'
@@ -228,21 +228,22 @@ function App() {
                   `}
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  Previous
+                  <span className="hidden xs:inline">Previous</span>
                 </button>
 
                 <button
                   onClick={handleNext}
                   disabled={!canProceed()}
                   className={`
-                    flex items-center gap-2 px-8 py-3 rounded-full transition-all duration-200 font-medium
+                    flex items-center justify-center gap-2 px-4 sm:px-8 py-3 rounded-full transition-all duration-200 font-medium min-h-[44px] text-sm sm:text-base
                     ${!canProceed()
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] text-white hover:from-[#4A90E2] hover:to-[#6BDCF7] shadow-lg hover:shadow-xl transform hover:scale-105'
                     }
                   `}
                 >
-                  {currentStep === 3 ? 'Calculate Results' : 'Next'}
+                  <span className="hidden xs:inline">{currentStep === 3 ? 'Calculate Results' : 'Next'}</span>
+                  <span className="xs:hidden">{currentStep === 3 ? 'Calculate' : 'Next'}</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>

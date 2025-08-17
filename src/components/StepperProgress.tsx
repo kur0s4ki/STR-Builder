@@ -15,8 +15,8 @@ interface StepperProgressProps {
 
 export function StepperProgress({ steps, currentStep, onStepClick }: StepperProgressProps) {
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex items-center">
+    <div className="flex items-center justify-center overflow-x-auto">
+      <div className="flex items-center min-w-max px-2">
         {steps.map((step, index) => {
           const isCompleted = currentStep > step.id;
           const isCurrent = currentStep === step.id;
@@ -34,7 +34,7 @@ export function StepperProgress({ steps, currentStep, onStepClick }: StepperProg
                   }}
                   disabled={!onStepClick || (!isCompleted && !isCurrent)}
                   className={`
-                    flex items-center justify-center w-12 h-12 rounded-full border-3 transition-all duration-300 ease-in-out
+                    flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 sm:border-3 transition-all duration-300 ease-in-out min-w-[44px] min-h-[44px]
                     ${isCompleted
                       ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] text-white shadow-lg scale-110 cursor-pointer hover:scale-115'
                       : isCurrent
@@ -45,9 +45,9 @@ export function StepperProgress({ steps, currentStep, onStepClick }: StepperProg
                   `}
                 >
                   {isCompleted ? (
-                    <Check className="h-6 w-6" />
+                    <Check className="h-4 w-4 sm:h-6 sm:w-6" />
                   ) : (
-                    <span className="text-sm font-bold">{step.id}</span>
+                    <span className="text-xs sm:text-sm font-bold">{step.id}</span>
                   )}
                 </button>
 
@@ -59,8 +59,8 @@ export function StepperProgress({ steps, currentStep, onStepClick }: StepperProg
 
               {/* Connecting Line */}
               {index < steps.length - 1 && (
-                <div className="relative mx-6">
-                  <div className="w-16 h-1 bg-white/30 rounded-full overflow-hidden">
+                <div className="relative mx-3 sm:mx-6">
+                  <div className="w-8 sm:w-16 h-1 bg-white/30 rounded-full overflow-hidden">
                     <div
                       className={`
                         h-full transition-all duration-500 ease-in-out rounded-full
@@ -76,7 +76,7 @@ export function StepperProgress({ steps, currentStep, onStepClick }: StepperProg
 
                   {/* Animated progress for current step */}
                   {isCurrent && (
-                    <div className="absolute top-0 left-0 w-16 h-1 bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full opacity-50 animate-pulse"></div>
+                    <div className="absolute top-0 left-0 w-8 sm:w-16 h-1 bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full opacity-50 animate-pulse"></div>
                   )}
                 </div>
               )}

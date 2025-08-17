@@ -44,7 +44,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
             Property & Setup Costs (USD)
           </h4>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Furniture Cost - Hidden for furnished package */}
             {!showFurnished && (
               <NumberInput
@@ -56,7 +56,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
               />
             )}
 
-            <div className={showFurnished ? "md:col-span-2" : ""}>
+            <div className={showFurnished ? "sm:col-span-2" : ""}>
               <NumberInput
                 label="Est. 1 Month Rent"
                 value={inputs.rentUSD}
@@ -110,7 +110,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
             Additional Services (USD)
           </h4>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Furnished-specific fields */}
             {showFurnished && (
               <>
@@ -156,8 +156,8 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
 
         {/* Our Fee Section */}
         <div className="pt-4 border-t border-slate-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">
               <NumberInput
                 label="Our Fee (CAD)"
                 value={inputs.feeCAD}
