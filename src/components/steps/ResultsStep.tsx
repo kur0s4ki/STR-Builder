@@ -8,6 +8,7 @@ interface ResultsStepProps {
   investmentResults: InvestmentResults | null;
   profitResults: ProfitResults | null;
   exchangeRate: number;
+  isLiveRate: boolean;
   onStartNew?: () => void;
 }
 
@@ -18,6 +19,7 @@ export function ResultsStep({
   investmentResults,
   profitResults,
   exchangeRate,
+  isLiveRate,
   onStartNew
 }: ResultsStepProps) {
   const [activeTab, setActiveTab] = useState<TabType>('summary');
@@ -190,7 +192,7 @@ export function ResultsStep({
             </h3>
             <div className="inline-block bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-3 py-1 rounded border border-[#2F80ED]/20 mt-1">
               <p className="text-sm text-[#0B1224] font-medium">
-                Rate USD→CAD: {exchangeRate}
+                {isLiveRate ? 'Live' : 'Fixed'} Rate USD→CAD: {exchangeRate.toFixed(4)}
               </p>
             </div>
           </div>

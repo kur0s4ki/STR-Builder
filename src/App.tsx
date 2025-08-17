@@ -6,9 +6,8 @@ import { InvestmentStep } from './components/steps/InvestmentStep';
 import { ProfitStep } from './components/steps/ProfitStep';
 import { ResultsStep } from './components/steps/ResultsStep';
 import { calculateInvestment, calculateProfits } from './utils/calculations';
+import { exchangeRateService } from './services/exchangeRateService';
 import type { Package, InvestmentInputs, ProfitInputs } from './types';
-
-const EXCHANGE_RATE = 1.35; // Hardcoded USD→CAD rate
 
 const STEPS = [
   { id: 1, title: 'Package Selection', description: 'Choose your investment package' },
@@ -40,17 +39,40 @@ function App() {
 
   const [investmentResults, setInvestmentResults] = useState<any>(null);
   const [profitResults, setProfitResults] = useState<any>(null);
+  const [exchangeRate, setExchangeRate] = useState<number>(1.35); // Default fallback rate
+  const [isLiveRate, setIsLiveRate] = useState<boolean>(false); // Track if rate is live or fixed
+  const [isLoadingExchangeRate, setIsLoadingExchangeRate] = useState<boolean>(true);
+
+  // Fetch exchange rate on app load
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        setIsLoadingExchangeRate(true);
+        const rateData = await exchangeRateService.getExchangeRateInfo();
+        setExchangeRate(rateData.usdToCAD);
+        setIsLiveRate(rateData.isLive);
+      } catch (error) {
+        console.error('Failed to fetch exchange rate:', error);
+        // Keep the default rate and mark as fixed if fetch fails
+        setIsLiveRate(false);
+      } finally {
+        setIsLoadingExchangeRate(false);
+      }
+    };
+
+    fetchExchangeRate();
+  }, []);
 
   // Calculate results when on results step
   useEffect(() => {
-    if (currentStep === 4) {
-      const invResults = calculateInvestment(selectedPackage, investmentInputs, EXCHANGE_RATE);
+    if (currentStep === 4 && !isLoadingExchangeRate) {
+      const invResults = calculateInvestment(selectedPackage, investmentInputs, exchangeRate);
       setInvestmentResults(invResults);
-      
-      const profResults = calculateProfits(selectedPackage, investmentInputs, profitInputs, EXCHANGE_RATE, invResults.totals.totalCAD);
+
+      const profResults = calculateProfits(selectedPackage, investmentInputs, profitInputs, exchangeRate, invResults.totals.totalCAD);
       setProfitResults(profResults);
     }
-  }, [currentStep, selectedPackage, investmentInputs, profitInputs]);
+  }, [currentStep, selectedPackage, investmentInputs, profitInputs, exchangeRate, isLoadingExchangeRate]);
 
   const updateInvestmentInput = (field: keyof InvestmentInputs, value: number | boolean) => {
     setInvestmentInputs(prev => ({ ...prev, [field]: value }));
@@ -117,6 +139,18 @@ function App() {
   };
 
   const renderStepContent = () => {
+    // Show loading indicator while fetching exchange rate (except for step 1 which doesn't need it)
+    if (isLoadingExchangeRate && currentStep > 1) {
+      return (
+        <div className="text-center py-12">
+          <div className="inline-flex items-center gap-3">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#2F80ED]"></div>
+            <span className="text-[#0B1224]">Loading exchange rates...</span>
+          </div>
+        </div>
+      );
+    }
+
     switch (currentStep) {
       case 1:
         return (
@@ -131,7 +165,8 @@ function App() {
             package={selectedPackage}
             inputs={investmentInputs}
             onInputChange={updateInvestmentInput}
-            exchangeRate={EXCHANGE_RATE}
+            exchangeRate={exchangeRate}
+            isLiveRate={isLiveRate}
           />
         );
       case 3:
@@ -147,7 +182,8 @@ function App() {
             package={selectedPackage}
             investmentResults={investmentResults}
             profitResults={profitResults}
-            exchangeRate={EXCHANGE_RATE}
+            exchangeRate={exchangeRate}
+            isLiveRate={isLiveRate}
             onStartNew={handleStartNew}
           />
         );

@@ -9,9 +9,10 @@ interface InvestmentStepProps {
   inputs: InvestmentInputs;
   onInputChange: (field: keyof InvestmentInputs, value: number | boolean) => void;
   exchangeRate: number;
+  isLiveRate: boolean;
 }
 
-export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRate }: InvestmentStepProps) {
+export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRate, isLiveRate }: InvestmentStepProps) {
   const showFurnished = pkg === 'furnished';
 
   return (
@@ -31,7 +32,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
           <DollarSign className="h-5 w-5 text-blue-600" />
           <div>
             <p className="font-medium text-blue-900">Exchange Rate</p>
-            <p className="text-sm text-blue-700">1 USD = {exchangeRate} CAD (Fixed rate)</p>
+            <p className="text-sm text-blue-700">1 USD = {exchangeRate.toFixed(4)} CAD ({isLiveRate ? 'Live rate' : 'Fixed rate'})</p>
           </div>
         </div>
       </div>
