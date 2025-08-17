@@ -149,60 +149,20 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <Calculator className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">STR Launch Investment Calculator</h1>
-                <p className="text-slate-600 text-sm">Professional short-term rental investment analysis</p>
-              </div>
-            </div>
-            {currentStep === 4 && (
-              <button
-                onClick={handleStartNew}
-                className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors duration-200"
-              >
-                <RotateCcw className="h-4 w-4" />
-                Start New Calculation
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-[#112F57] via-[#0B1224] to-[#0B1224] relative">
+      {/* Soft radial gradient overlay for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-radial from-[#112F57]/30 via-transparent to-transparent pointer-events-none"></div>
 
       {/* Progress Bar */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-[#0B1224] border-b border-[#112F57]/50 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <StepperProgress steps={STEPS} currentStep={currentStep} />
         </div>
       </div>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-          {/* Step Header */}
-          <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-semibold text-slate-900">
-                  Step {currentStep}: {STEPS[currentStep - 1].title}
-                </h2>
-                <p className="text-slate-600 text-sm mt-1">
-                  {STEPS[currentStep - 1].description}
-                </p>
-              </div>
-              <div className="text-sm text-slate-500">
-                {currentStep} of {STEPS.length}
-              </div>
-            </div>
-          </div>
-
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+        <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20 overflow-hidden">
           {/* Step Content */}
           <div className="p-6">
             {renderStepContent()}
@@ -210,16 +170,16 @@ function App() {
 
           {/* Navigation */}
           {currentStep < 4 && (
-            <div className="bg-slate-50 px-6 py-4 border-t border-slate-200">
+            <div className="bg-white/50 backdrop-blur-sm px-6 py-4 border-t border-gray-200/30">
               <div className="flex items-center justify-between">
                 <button
                   onClick={handlePrevious}
                   disabled={currentStep === 1}
                   className={`
-                    flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200
+                    flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-200 font-medium
                     ${currentStep === 1
-                      ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                      : 'bg-slate-600 text-white hover:bg-slate-700'
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-gray-300 hover:to-gray-400 shadow-md hover:shadow-lg'
                     }
                   `}
                 >
@@ -231,10 +191,10 @@ function App() {
                   onClick={handleNext}
                   disabled={!canProceed()}
                   className={`
-                    flex items-center gap-2 px-6 py-2 rounded-lg transition-colors duration-200
+                    flex items-center gap-2 px-8 py-3 rounded-full transition-all duration-200 font-medium
                     ${!canProceed()
-                      ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] text-white hover:from-[#4A90E2] hover:to-[#6BDCF7] shadow-lg hover:shadow-xl transform hover:scale-105'
                     }
                   `}
                 >
@@ -247,15 +207,7 @@ function App() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 mt-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-center gap-2 text-slate-600">
-            <Calculator className="h-4 w-4" />
-            <span className="text-sm">STR Launch Investment Calculator - Professional Financial Analysis</span>
-          </div>
-        </div>
-      </footer>
+
     </div>
   );
 }

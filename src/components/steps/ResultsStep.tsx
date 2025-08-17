@@ -60,68 +60,68 @@ export function ResultsStep({
     <div className="space-y-6">
       {/* Key Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+        <div className="bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-4 border border-[#2F80ED]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
-            <DollarSign className="h-4 w-4 text-blue-600" />
-            <span className="text-sm font-medium text-blue-900">Total Investment</span>
+            <DollarSign className="h-4 w-4 text-[#2F80ED]" />
+            <span className="text-sm font-medium text-[#0B1224]">Total Investment</span>
           </div>
-          <p className="text-2xl font-bold text-blue-900">
+          <p className="text-2xl font-bold text-[#0B1224]">
             ${formatValue(totalInvestment)} CAD
           </p>
         </div>
 
-        <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
+        <div className="bg-gradient-to-br from-[#56CCF2]/10 to-[#2F80ED]/10 rounded-lg p-4 border border-[#56CCF2]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="h-4 w-4 text-emerald-600" />
-            <span className="text-sm font-medium text-emerald-900">Monthly Net</span>
+            <TrendingUp className="h-4 w-4 text-[#56CCF2]" />
+            <span className="text-sm font-medium text-[#0B1224]">Monthly Net</span>
           </div>
-          <p className="text-2xl font-bold text-emerald-900">
+          <p className="text-2xl font-bold text-[#0B1224]">
             ${formatValue(monthlyNet)} CAD
           </p>
         </div>
 
-        <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+        <div className="bg-gradient-to-br from-[#112F57]/10 to-[#2F80ED]/10 rounded-lg p-4 border border-[#112F57]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Calendar className="h-4 w-4 text-purple-600" />
-            <span className="text-sm font-medium text-purple-900">ROI Timeline</span>
+            <Calendar className="h-4 w-4 text-[#112F57]" />
+            <span className="text-sm font-medium text-[#0B1224]">ROI Timeline</span>
           </div>
-          <p className="text-2xl font-bold text-purple-900">
+          <p className="text-2xl font-bold text-[#0B1224]">
             {roiTimeline === 'N/A' ? 'N/A' : `${formatValue(roiTimeline)} mo`}
           </p>
         </div>
 
-        <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
+        <div className="bg-gradient-to-br from-[#0B1224]/10 to-[#112F57]/10 rounded-lg p-4 border border-[#0B1224]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Percent className="h-4 w-4 text-amber-600" />
-            <span className="text-sm font-medium text-amber-900">Year 1 ROI</span>
+            <Percent className="h-4 w-4 text-[#0B1224]" />
+            <span className="text-sm font-medium text-[#0B1224]">Year 1 ROI</span>
           </div>
-          <p className="text-2xl font-bold text-amber-900">
+          <p className="text-2xl font-bold text-[#0B1224]">
             {formatValue(year1ROI, true)}
           </p>
         </div>
       </div>
 
       {/* Investment Phases */}
-      <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-          <h4 className="font-semibold text-slate-900">Investment Timeline</h4>
+      <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200/50 overflow-hidden shadow-lg">
+        <div className="bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-6 py-4 border-b border-gray-200/50">
+          <h4 className="font-semibold text-[#0B1224]">Investment Timeline</h4>
         </div>
         <div className="p-6">
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg border border-[#2F80ED]/20">
               <div>
-                <p className="font-medium text-blue-900">Day 1 Payment</p>
-                <p className="text-sm text-blue-700">Payment to STR Launch</p>
+                <p className="font-medium text-[#0B1224]">Day 1 Payment</p>
+                <p className="text-sm text-[#112F57]">Payment to STR Launch</p>
               </div>
-              <p className="text-xl font-bold text-blue-900">${formatValue(day1Payment)} CAD</p>
+              <p className="text-xl font-bold text-[#2F80ED]">${formatValue(day1Payment)} CAD</p>
             </div>
-            
-            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#112F57]/10 to-[#0B1224]/10 rounded-lg border border-[#112F57]/20">
               <div>
-                <p className="font-medium text-slate-900">60-90 Days</p>
-                <p className="text-sm text-slate-600">Additional setup costs</p>
+                <p className="font-medium text-[#0B1224]">60-90 Days</p>
+                <p className="text-sm text-[#112F57]">Additional setup costs</p>
               </div>
-              <p className="text-xl font-bold text-slate-900">
+              <p className="text-xl font-bold text-[#112F57]">
                 ${formatValue(typeof totalInvestment === 'number' && typeof day1Payment === 'number' ? totalInvestment - day1Payment : 0)} CAD
               </p>
             </div>
@@ -130,23 +130,23 @@ export function ResultsStep({
       </div>
 
       {/* Profit Projections */}
-      <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-        <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-          <h4 className="font-semibold text-slate-900">3-Year Profit Projection</h4>
+      <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200/50 overflow-hidden shadow-lg">
+        <div className="bg-gradient-to-r from-[#56CCF2]/10 to-[#2F80ED]/10 px-6 py-4 border-b border-gray-200/50">
+          <h4 className="font-semibold text-[#0B1224]">3-Year Profit Projection</h4>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[1, 2, 3].map(year => {
               const yearProfit = profitResults.rows.find(r => r.label.includes(`Year ${year}`))?.cadAmount || 0;
               const yearROI = profitResults.rows.find(r => r.label.includes(`ROI % ( Year ${year})`))?.cadAmount || 0;
-              
+
               return (
-                <div key={year} className="text-center p-4 bg-emerald-50 rounded-lg">
-                  <p className="text-sm font-medium text-emerald-900 mb-2">Year {year}</p>
-                  <p className="text-lg font-bold text-emerald-900 mb-1">
+                <div key={year} className="text-center p-4 bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg border border-[#2F80ED]/20">
+                  <p className="text-sm font-medium text-[#0B1224] mb-2">Year {year}</p>
+                  <p className="text-lg font-bold text-[#2F80ED] mb-1">
                     ${formatValue(yearProfit)} CAD
                   </p>
-                  <p className="text-sm text-emerald-700">
+                  <p className="text-sm text-[#112F57]">
                     ROI: {formatValue(yearROI, true)}
                   </p>
                 </div>
@@ -159,56 +159,57 @@ export function ResultsStep({
   );
 
   const renderInvestmentTab = () => (
-    <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-      <div className="bg-blue-50 px-6 py-4 border-b border-slate-200">
+    <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200/50 overflow-hidden shadow-lg">
+      <div className="bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-6 py-4 border-b border-gray-200/50">
         <div className="flex items-center gap-3">
-          <BarChart3 className="h-5 w-5 text-blue-600" />
+          <BarChart3 className="h-5 w-5 text-[#2F80ED]" />
           <div>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-[#0B1224]">
               {getPackageTitle(pkg, 'investment')}
             </h3>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-[#112F57]">
               Rate USD→CAD: {exchangeRate}
             </p>
           </div>
         </div>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-slate-50">
+          <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#2F80ED]/5">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Description
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 CAD Amount
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 USD Amount
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-gray-200/50">
             {investmentResults.rows.map((row, index) => {
               const isTotal = row.label.includes('Total');
               const isDay1 = row.label.includes('Day 1');
-              
+
               return (
-                <tr 
-                  key={index} 
+                <tr
+                  key={index}
                   className={`
-                    ${isTotal ? 'bg-blue-50 font-semibold' : 'bg-white'}
-                    ${isDay1 ? 'bg-emerald-50 font-medium' : ''}
+                    ${isTotal ? 'bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 font-semibold' : 'bg-white/50'}
+                    ${isDay1 ? 'bg-gradient-to-r from-[#56CCF2]/10 to-[#2F80ED]/10 font-medium' : ''}
+                    hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-6 py-4 text-sm text-slate-900">
+                  <td className="px-6 py-4 text-sm text-[#0B1224]">
                     {row.label}
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono">
+                  <td className="px-6 py-4 text-sm text-right font-mono text-[#2F80ED] font-semibold">
                     {formatValue(row.cadAmount)}
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono">
+                  <td className="px-6 py-4 text-sm text-right font-mono text-[#112F57]">
                     {row.usdAmount !== null ? formatValue(row.usdAmount) : '—'}
                   </td>
                 </tr>
@@ -221,57 +222,58 @@ export function ResultsStep({
   );
 
   const renderProfitsTab = () => (
-    <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
-      <div className="bg-emerald-50 px-6 py-4 border-b border-slate-200">
+    <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200/50 overflow-hidden shadow-lg">
+      <div className="bg-gradient-to-r from-[#56CCF2]/10 to-[#2F80ED]/10 px-6 py-4 border-b border-gray-200/50">
         <div className="flex items-center gap-3">
-          <TrendingUp className="h-5 w-5 text-emerald-600" />
-          <h3 className="font-semibold text-slate-900">
+          <TrendingUp className="h-5 w-5 text-[#56CCF2]" />
+          <h3 className="font-semibold text-[#0B1224]">
             {getPackageTitle(pkg, 'profit')}
           </h3>
         </div>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-slate-50">
+          <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#56CCF2]/5">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Metric
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 CAD Value
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 USD Value
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-gray-200/50">
             {profitResults.rows.map((row, index) => {
               const isROI = row.label.includes('ROI %');
               const isProfit = row.label.includes('Profits');
               const isTimeline = row.label.includes('Timeline');
-              
+
               return (
-                <tr 
-                  key={index} 
+                <tr
+                  key={index}
                   className={`
-                    ${isProfit ? 'bg-emerald-50' : 'bg-white'}
-                    ${isROI ? 'bg-blue-50' : ''}
+                    ${isProfit ? 'bg-gradient-to-r from-[#56CCF2]/10 to-[#2F80ED]/10' : 'bg-white/50'}
+                    ${isROI ? 'bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10' : ''}
+                    hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-6 py-4 text-sm text-slate-900">
+                  <td className="px-6 py-4 text-sm text-[#0B1224]">
                     {row.label}
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono">
-                    {isROI 
+                  <td className="px-6 py-4 text-sm text-right font-mono text-[#56CCF2] font-semibold">
+                    {isROI
                       ? formatValue(row.cadAmount, true)
-                      : isTimeline 
+                      : isTimeline
                         ? formatValue(row.cadAmount) + (row.cadAmount !== "N/A" ? " months" : "")
                         : formatValue(row.cadAmount)
                     }
                   </td>
-                  <td className="px-6 py-4 text-sm text-right font-mono">
+                  <td className="px-6 py-4 text-sm text-right font-mono text-[#112F57]">
                     {row.usdAmount !== null ? formatValue(row.usdAmount) : '—'}
                   </td>
                 </tr>
@@ -295,8 +297,8 @@ export function ResultsStep({
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-slate-200">
-        <nav className="flex space-x-8">
+      <div className="border-b border-gray-200/50">
+        <nav className="flex justify-center">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
@@ -304,10 +306,10 @@ export function ResultsStep({
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
-                  flex items-center gap-2 py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200
+                  flex-1 flex items-center justify-center gap-2 py-3 px-4 border-b-2 font-medium text-sm transition-all duration-200
                   ${activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                    ? 'border-[#2F80ED] text-[#2F80ED] bg-gradient-to-r from-[#2F80ED]/5 to-[#56CCF2]/5'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50/50'
                   }
                 `}
               >

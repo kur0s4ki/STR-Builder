@@ -14,10 +14,10 @@ export function CheckboxInput({ label, checked, onChange }: CheckboxInputProps) 
         type="button"
         onClick={() => onChange(!checked)}
         className={`
-          w-5 h-5 rounded border-2 flex items-center justify-center transition-colors duration-200
-          ${checked 
-            ? 'bg-blue-600 border-blue-600' 
-            : 'bg-white border-slate-300 hover:border-slate-400'
+          w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200
+          ${checked
+            ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] shadow-md'
+            : 'bg-white border-gray-300 hover:border-gray-400 hover:shadow-sm'
           }
         `}
       >
@@ -25,7 +25,7 @@ export function CheckboxInput({ label, checked, onChange }: CheckboxInputProps) 
       </button>
       <label 
         onClick={() => onChange(!checked)}
-        className="text-sm font-medium text-slate-700 cursor-pointer select-none"
+        className="text-sm font-medium text-gray-700 cursor-pointer select-none"
       >
         {label}
       </label>

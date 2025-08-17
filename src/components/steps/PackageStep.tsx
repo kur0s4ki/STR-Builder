@@ -21,9 +21,9 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Complete turnkey solution'
       ],
       icon: Home,
-      color: 'bg-emerald-500',
-      borderColor: 'border-emerald-500',
-      bgColor: 'bg-emerald-50'
+      color: 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2]',
+      borderColor: 'border-[#2F80ED]',
+      bgColor: 'bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10'
     },
     {
       id: 'unfurnished1' as Package,
@@ -37,9 +37,9 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Flexible customization'
       ],
       icon: Building,
-      color: 'bg-blue-500',
-      borderColor: 'border-blue-500',
-      bgColor: 'bg-blue-50'
+      color: 'bg-gradient-to-r from-[#112F57] to-[#2F80ED]',
+      borderColor: 'border-[#112F57]',
+      bgColor: 'bg-gradient-to-br from-[#112F57]/10 to-[#2F80ED]/10'
     },
     {
       id: 'unfurnished2' as Package,
@@ -53,9 +53,9 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         'Premium market positioning'
       ],
       icon: Building2,
-      color: 'bg-purple-500',
-      borderColor: 'border-purple-500',
-      bgColor: 'bg-purple-50'
+      color: 'bg-gradient-to-r from-[#0B1224] to-[#112F57]',
+      borderColor: 'border-[#0B1224]',
+      bgColor: 'bg-gradient-to-br from-[#0B1224]/10 to-[#112F57]/10'
     }
   ];
 
@@ -80,17 +80,17 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
               key={pkg.id}
               onClick={() => onPackageChange(pkg.id)}
               className={`
-                relative p-6 rounded-xl border-2 transition-all duration-200 text-left h-full
-                ${isSelected 
-                  ? `${pkg.borderColor} ${pkg.bgColor} shadow-lg transform scale-105` 
-                  : 'border-slate-200 hover:border-slate-300 hover:shadow-md bg-white'
+                relative p-6 rounded-xl border-2 transition-all duration-300 text-left h-full
+                ${isSelected
+                  ? `border-[#2F80ED] bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 shadow-xl transform scale-105 ring-2 ring-[#2F80ED]/30`
+                  : 'border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white/90 backdrop-blur-sm hover:scale-102'
                 }
               `}
             >
               {/* Selection Indicator */}
               {isSelected && (
                 <div className="absolute top-4 right-4">
-                  <div className="bg-emerald-600 rounded-full p-1">
+                  <div className="bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] rounded-full p-1 shadow-lg animate-pulse">
                     <Check className="h-4 w-4 text-white" />
                   </div>
                 </div>
@@ -121,24 +121,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
         })}
       </div>
 
-      {/* Selected Package Summary */}
-      <div className="bg-slate-50 rounded-lg p-4">
-        <div className="flex items-center gap-3">
-          <div className="bg-blue-600 p-2 rounded-lg">
-            {React.createElement(packages.find(p => p.id === selectedPackage)?.icon || Home, {
-              className: "h-5 w-5 text-white"
-            })}
-          </div>
-          <div>
-            <p className="font-medium text-slate-900">
-              Selected: {packages.find(p => p.id === selectedPackage)?.name}
-            </p>
-            <p className="text-sm text-slate-600">
-              {packages.find(p => p.id === selectedPackage)?.description}
-            </p>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

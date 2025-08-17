@@ -22,39 +22,39 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Input Section */}
-        <div className="space-y-6">
-          <div className="bg-emerald-50 rounded-lg p-6 border border-emerald-200">
+      <div className="space-y-6">
+        {/* Input Fields in 2-column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-6 border border-[#2F80ED]/30 backdrop-blur-sm">
             <div className="flex items-center gap-3 mb-4">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
-              <h4 className="font-medium text-emerald-900">Revenue Estimation</h4>
+              <TrendingUp className="h-5 w-5 text-[#2F80ED]" />
+              <h4 className="font-medium text-[#0B1224]">Revenue Estimation</h4>
             </div>
             <NumberInput
               label="Est. Monthly Gross Revenue (USD)"
               value={inputs.monthlyGrossUSD}
               onChange={(value) => onInputChange('monthlyGrossUSD', value)}
               placeholder="0.00"
-              className="bg-white"
+              className="bg-white/90 backdrop-blur-sm border-[#2F80ED]/20 focus:border-[#2F80ED] focus:ring-[#2F80ED]"
             />
-            <p className="text-xs text-emerald-700 mt-2">
+            <p className="text-xs text-[#112F57] mt-2">
               Include all rental income before expenses
             </p>
           </div>
 
-          <div className="bg-red-50 rounded-lg p-6 border border-red-200">
+          <div className="bg-gradient-to-br from-[#112F57]/10 to-[#0B1224]/10 rounded-lg p-6 border border-[#112F57]/30 backdrop-blur-sm">
             <div className="flex items-center gap-3 mb-4">
-              <Calculator className="h-5 w-5 text-red-600" />
-              <h4 className="font-medium text-red-900">Expense Estimation</h4>
+              <Calculator className="h-5 w-5 text-[#112F57]" />
+              <h4 className="font-medium text-[#0B1224]">Expense Estimation</h4>
             </div>
             <NumberInput
               label="Est. Monthly Expenses (USD)"
               value={inputs.monthlyExpensesUSD}
               onChange={(value) => onInputChange('monthlyExpensesUSD', value)}
               placeholder="0.00"
-              className="bg-white"
+              className="bg-white/90 backdrop-blur-sm border-[#112F57]/20 focus:border-[#112F57] focus:ring-[#112F57]"
             />
-            <p className="text-xs text-red-700 mt-2">
+            <p className="text-xs text-[#112F57] mt-2">
               Include utilities, cleaning, maintenance, management fees, etc.
             </p>
           </div>
@@ -62,28 +62,28 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
 
         {/* Preview Section */}
         <div className="space-y-6">
-          <div className="bg-slate-50 rounded-lg p-6">
-            <h4 className="font-medium text-slate-900 mb-4">Monthly Profit Preview</h4>
-            
+          <div className="bg-white/90 backdrop-blur-sm rounded-lg p-6 border border-gray-200/50 shadow-lg">
+            <h4 className="font-medium text-[#0B1224] mb-4">Monthly Profit Preview</h4>
+
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-slate-600">Gross Revenue:</span>
-                <span className="font-mono text-emerald-600">
+                <span className="text-[#112F57]">Gross Revenue:</span>
+                <span className="font-mono text-[#2F80ED] font-semibold">
                   ${inputs.monthlyGrossUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              
+
               <div className="flex justify-between items-center">
-                <span className="text-slate-600">Expenses:</span>
-                <span className="font-mono text-red-600">
+                <span className="text-[#112F57]">Expenses:</span>
+                <span className="font-mono text-[#112F57] font-semibold">
                   -${inputs.monthlyExpensesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              
-              <div className="border-t border-slate-300 pt-3">
+
+              <div className="border-t border-[#112F57]/20 pt-3">
                 <div className="flex justify-between items-center">
-                  <span className="font-medium text-slate-900">Net Profit:</span>
-                  <span className={`font-mono font-semibold ${netProfit >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                  <span className="font-medium text-[#0B1224]">Net Profit:</span>
+                  <span className={`font-mono font-bold text-lg ${netProfit >= 0 ? 'text-[#2F80ED]' : 'text-[#112F57]'}`}>
                     ${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -91,8 +91,8 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
             </div>
 
             {netProfit <= 0 && inputs.monthlyGrossUSD > 0 && (
-              <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-xs text-amber-800">
+              <div className="mt-4 p-3 bg-gradient-to-r from-[#112F57]/10 to-[#0B1224]/10 border border-[#112F57]/30 rounded-lg">
+                <p className="text-xs text-[#112F57]">
                   ⚠️ Your expenses exceed revenue. Consider adjusting your estimates for accurate ROI calculations.
                 </p>
               </div>
@@ -114,10 +114,10 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
       </div>
 
       {/* Progress Indicator */}
-      <div className="bg-slate-50 rounded-lg p-4">
+      <div className="bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-4 border border-[#2F80ED]/20">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-slate-600">Profit analysis status:</span>
-          <span className="font-medium text-slate-900">
+          <span className="text-[#112F57]">Profit analysis status:</span>
+          <span className="font-medium text-[#0B1224]">
             {inputs.monthlyGrossUSD > 0 ? '✓ Ready to calculate results' : 'Enter revenue to continue'}
           </span>
         </div>
