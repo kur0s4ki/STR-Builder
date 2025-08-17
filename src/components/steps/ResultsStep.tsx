@@ -56,7 +56,7 @@ export function ResultsStep({
   const monthlyNet = profitResults.rows.find(r => r.label.includes('Monthly Net'))?.cadAmount || 0;
   const roiTimeline = profitResults.rows.find(r => r.label.includes('Timeline'))?.cadAmount || 'N/A';
   const year1Profit = profitResults.rows.find(r => r.label.includes('Year 1'))?.cadAmount || 0;
-  const year1ROI = profitResults.rows.find(r => r.label.includes('ROI % ( Year 1)'))?.cadAmount || 0;
+  const year1ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 1)'))?.cadAmount || 0;
 
   const renderSummaryTab = () => (
     <div className="space-y-6">
@@ -159,7 +159,7 @@ export function ResultsStep({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[1, 2, 3].map(year => {
               const yearProfit = profitResults.rows.find(r => r.label.includes(`Year ${year}`))?.cadAmount || 0;
-              const yearROI = profitResults.rows.find(r => r.label.includes(`ROI % ( Year ${year})`))?.cadAmount || 0;
+              const yearROI = profitResults.rows.find(r => r.label.includes(`ROI % (Year ${year})`))?.cadAmount || 0;
 
               return (
                 <div key={year} className="text-center p-4 bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg border border-[#2F80ED]/20">
