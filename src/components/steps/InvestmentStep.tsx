@@ -51,6 +51,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                 value={inputs.furnitureUSD}
                 onChange={(value) => onInputChange('furnitureUSD', value)}
                 placeholder="0.00"
+                currency="USD"
               />
             )}
 
@@ -60,6 +61,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                 value={inputs.rentUSD}
                 onChange={(value) => onInputChange('rentUSD', value)}
                 placeholder="0.00"
+                currency="USD"
               />
             </div>
 
@@ -68,6 +70,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
               value={inputs.llcEinUSD}
               onChange={(value) => onInputChange('llcEinUSD', value)}
               placeholder="0.00"
+              currency="USD"
             />
 
             <NumberInput
@@ -75,6 +78,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
               value={inputs.utilityDepositUSD}
               onChange={(value) => onInputChange('utilityDepositUSD', value)}
               placeholder="0.00"
+              currency="USD"
             />
 
             {!inputs.securityDepositSameAsRent && (
@@ -84,6 +88,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                   value={inputs.securityDepositUSD}
                   onChange={(value) => onInputChange('securityDepositUSD', value)}
                   placeholder="0.00"
+                  currency="USD"
                 />
               </div>
             )}
@@ -113,12 +118,14 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                   value={inputs.stockingUSD}
                   onChange={(value) => onInputChange('stockingUSD', value)}
                   placeholder="0.00"
+                  currency="USD"
                 />
                 <NumberInput
                   label="Est. Smart Lock & Tech Setup"
                   value={inputs.smartLockUSD}
                   onChange={(value) => onInputChange('smartLockUSD', value)}
                   placeholder="0.00"
+                  currency="USD"
                 />
               </>
             )}
@@ -129,6 +136,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                 value={inputs.permitsUSD}
                 onChange={(value) => onInputChange('permitsUSD', value)}
                 placeholder="0.00"
+                currency="USD"
               />
             </div>
 
@@ -139,6 +147,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                 value={inputs.photosUSD}
                 onChange={(value) => onInputChange('photosUSD', value)}
                 placeholder="0.00"
+                currency="USD"
               />
             )}
           </div>
@@ -155,6 +164,7 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
                 placeholder="0.00"
                 className="bg-emerald-50 border-emerald-200"
                 labelClassName="font-semibold text-emerald-900"
+                currency="CAD"
               />
               <div className="flex items-start gap-2 mt-2">
                 <Info className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />

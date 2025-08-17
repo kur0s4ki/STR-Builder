@@ -96,6 +96,13 @@ function App() {
     setProfitResults(null);
   };
 
+  const handleStepClick = (stepId: number) => {
+    // Only allow navigation to completed steps or current step
+    if (stepId <= currentStep) {
+      setCurrentStep(stepId);
+    }
+  };
+
   const canProceed = () => {
     switch (currentStep) {
       case 1:
@@ -141,6 +148,7 @@ function App() {
             investmentResults={investmentResults}
             profitResults={profitResults}
             exchangeRate={EXCHANGE_RATE}
+            onStartNew={handleStartNew}
           />
         );
       default:
@@ -156,7 +164,7 @@ function App() {
       {/* Progress Bar */}
       <div className="bg-[#0B1224] border-b border-[#112F57]/50 relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <StepperProgress steps={STEPS} currentStep={currentStep} />
+          <StepperProgress steps={STEPS} currentStep={currentStep} onStepClick={handleStepClick} />
         </div>
       </div>
 

@@ -10,9 +10,10 @@ interface Step {
 interface StepperProgressProps {
   steps: Step[];
   currentStep: number;
+  onStepClick?: (stepId: number) => void;
 }
 
-export function StepperProgress({ steps, currentStep }: StepperProgressProps) {
+export function StepperProgress({ steps, currentStep, onStepClick }: StepperProgressProps) {
   return (
     <div className="flex items-center justify-center">
       <div className="flex items-center">
@@ -25,23 +26,30 @@ export function StepperProgress({ steps, currentStep }: StepperProgressProps) {
             <React.Fragment key={step.id}>
               {/* Step Circle */}
               <div className="relative">
-                <div
+                <button
+                  onClick={() => {
+                    if (onStepClick && (isCompleted || isCurrent)) {
+                      onStepClick(step.id);
+                    }
+                  }}
+                  disabled={!onStepClick || (!isCompleted && !isCurrent)}
                   className={`
                     flex items-center justify-center w-12 h-12 rounded-full border-3 transition-all duration-300 ease-in-out
                     ${isCompleted
-                      ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] text-white shadow-lg scale-110'
+                      ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] text-white shadow-lg scale-110 cursor-pointer hover:scale-115'
                       : isCurrent
-                      ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] text-white shadow-xl scale-125 animate-pulse'
-                      : 'bg-white/80 border-white/60 text-gray-400 backdrop-blur-sm'
+                      ? 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] border-[#2F80ED] text-white shadow-xl scale-125 animate-pulse cursor-pointer'
+                      : 'bg-white/80 border-white/60 text-gray-400 backdrop-blur-sm cursor-not-allowed'
                     }
+                    ${(isCompleted || isCurrent) && onStepClick ? 'hover:shadow-2xl' : ''}
                   `}
                 >
                   {isCompleted ? (
-                    <Check className="h-6 w-6 animate-bounce" />
+                    <Check className="h-6 w-6" />
                   ) : (
                     <span className="text-sm font-bold">{step.id}</span>
                   )}
-                </div>
+                </button>
 
                 {/* Glow effect for current step */}
                 {isCurrent && (

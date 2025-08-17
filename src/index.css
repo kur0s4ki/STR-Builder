@@ -11,6 +11,10 @@
     transform: scale(1.02);
   }
 
+  .hover\:scale-115:hover {
+    transform: scale(1.15);
+  }
+
   .border-3 {
     border-width: 3px;
   }

@@ -36,6 +36,7 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
               onChange={(value) => onInputChange('monthlyGrossUSD', value)}
               placeholder="0.00"
               className="bg-white/90 backdrop-blur-sm border-[#2F80ED]/20 focus:border-[#2F80ED] focus:ring-[#2F80ED]"
+              currency="USD"
             />
             <p className="text-xs text-[#112F57] mt-2">
               Include all rental income before expenses
@@ -53,6 +54,7 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
               onChange={(value) => onInputChange('monthlyExpensesUSD', value)}
               placeholder="0.00"
               className="bg-white/90 backdrop-blur-sm border-[#112F57]/20 focus:border-[#112F57] focus:ring-[#112F57]"
+              currency="USD"
             />
             <p className="text-xs text-[#112F57] mt-2">
               Include utilities, cleaning, maintenance, management fees, etc.
@@ -69,14 +71,14 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
               <div className="flex justify-between items-center">
                 <span className="text-[#112F57]">Gross Revenue:</span>
                 <span className="font-mono text-[#2F80ED] font-semibold">
-                  ${inputs.monthlyGrossUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  {inputs.monthlyGrossUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
                 </span>
               </div>
 
               <div className="flex justify-between items-center">
                 <span className="text-[#112F57]">Expenses:</span>
                 <span className="font-mono text-[#112F57] font-semibold">
-                  -${inputs.monthlyExpensesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  -{inputs.monthlyExpensesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
                 </span>
               </div>
 
@@ -84,7 +86,7 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
                 <div className="flex justify-between items-center">
                   <span className="font-medium text-[#0B1224]">Net Profit:</span>
                   <span className={`font-mono font-bold text-lg ${netProfit >= 0 ? 'text-[#2F80ED]' : 'text-[#112F57]'}`}>
-                    ${netProfit.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    {netProfit.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
                   </span>
                 </div>
               </div>
