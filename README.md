@@ -1,1 +1,1 @@
-STR-Builder calculator
+STR-Builder
