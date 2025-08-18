@@ -59,12 +59,12 @@ export function ResultsStep({
   const monthlyNet = profitResults.rows.find(r => r.label.includes('Monthly Net'))?.cadAmount || 0;
   const roiTimeline = profitResults.rows.find(r => r.label.includes('Timeline'))?.cadAmount || 'N/A';
   const year1Profit = profitResults.rows.find(r => r.label.includes('Year 1'))?.cadAmount || 0;
-  const year1ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 1)'))?.cadAmount || 0;
+  const year2ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 2)'))?.cadAmount || 0;
 
   const renderSummaryTab = () => (
     <div className="space-y-6">
       {/* Key Metrics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4">
         <div className="bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-4 border border-[#2F80ED]/30 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-2">
             <DollarSign className="h-4 w-4 text-[#2F80ED]" />
@@ -119,7 +119,7 @@ export function ResultsStep({
           </div>
           <div className="flex items-baseline gap-1">
             <span className="currency-display font-bold text-[#0B1224] leading-none">
-              {formatValue(year1ROI, true)}
+              {formatValue(year2ROI, true)}
             </span>
           </div>
         </div>
@@ -320,16 +320,16 @@ export function ResultsStep({
 
   const renderComparisonTab = () => {
     const comparisonData = [
-      { investment: 'Gold', roi: '3% – 8%' },
-      { investment: 'Stocks (S&P 500)', roi: '7% – 15%' },
-      { investment: 'Index Funds', roi: '7% – 10%' },
-      { investment: 'Traditional Real Estate', roi: '6% – 12%' },
-      { investment: 'Bank Savings', roi: '1% – 5%' },
-      { investment: 'Bonds', roi: '4% – 6%' },
-      { investment: 'High-Yield ETFs', roi: '6% – 10%' },
-      { investment: 'Starting a Business', roi: '20% – 50%' },
-      { investment: 'Buying a Franchise', roi: '5% – 15%' },
-      { investment: 'STR Rental Arbitrage (Your Result)', roi: formatValue(year1ROI, true, false) }
+      { investment: 'Gold', roi: '6% – 16%' },
+      { investment: 'Stocks (S&P 500)', roi: '14% – 30%' },
+      { investment: 'Index Funds', roi: '14% – 20%' },
+      { investment: 'Traditional Real Estate', roi: '12% – 24%' },
+      { investment: 'Bank Savings', roi: '2% – 10%' },
+      { investment: 'Bonds', roi: '8% – 12%' },
+      { investment: 'High-Yield ETFs', roi: '12% – 20%' },
+      { investment: 'Starting a Business', roi: '40% – 100%' },
+      { investment: 'Buying a Franchise', roi: '10% – 30%' },
+      { investment: 'STR Rental Arbitrage (Your Result)', roi: formatValue(year2ROI, true, false) }
     ];
 
     return (
@@ -339,7 +339,7 @@ export function ResultsStep({
             How Does STR Rental Arbitrage Stack Up?
           </h4>
           <p className="text-sm text-slate-600 mb-4">
-            Compare the average 1-year ROI of our short-term rental co-leasing model against other common investment options.
+            Compare the average 2-year ROI of our short-term rental co-leasing model against other common investment options.
           </p>
           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
             <p className="text-sm text-blue-800">
@@ -356,7 +356,7 @@ export function ResultsStep({
                   Investment Type
                 </th>
                 <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                  1-Year ROI
+                  2-Year ROI
                 </th>
               </tr>
             </thead>
