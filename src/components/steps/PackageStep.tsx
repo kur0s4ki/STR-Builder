@@ -12,7 +12,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     {
       id: 'furnished' as Package,
       name: 'Furnished Package',
-      description: '1BR/2BR/3BR with furniture & amenities',
+      description: '1BR/2BR/3BR',
       features: [
         'Furniture included in package',
         'Stocking essentials setup',
@@ -112,7 +112,16 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
 
               {/* Package Info */}
               <div className="mb-3 sm:mb-4">
-                <h4 className="font-semibold text-slate-900 mb-1 text-base sm:text-lg">{pkg.name}</h4>
+                <h4 className="font-semibold text-slate-900 mb-1 text-sm sm:text-xs md:text-sm lg:text-base leading-tight">
+                  {pkg.name.includes('Package') ? (
+                    <>
+                      <span className="inline sm:block md:inline">{pkg.name.split(' Package')[0]}</span>
+                      <span className="whitespace-nowrap"> Package{pkg.name.includes('Package 1') ? '\u00A01' : pkg.name.includes('Package 2') ? '\u00A02' : ''}</span>
+                    </>
+                  ) : (
+                    <span>{pkg.name}</span>
+                  )}
+                </h4>
                 <p className="text-sm text-slate-600">{pkg.description}</p>
               </div>
             </button>
