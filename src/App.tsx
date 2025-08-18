@@ -160,10 +160,10 @@ function App() {
 
   const handleNext = async () => {
     if (currentStep < STEPS.length) {
-      // If going to results step (step 3), show loading for 3 seconds
+      // If going to results step (step 3), show loading for 1.5 seconds
       if (currentStep === 2) {
         setIsCalculating(true);
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         setIsCalculating(false);
       }
       setCurrentStep(currentStep + 1);
