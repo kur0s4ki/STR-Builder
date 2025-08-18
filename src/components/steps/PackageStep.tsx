@@ -28,7 +28,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     {
       id: 'unfurnished1' as Package,
       name: 'Unfurnished Package 1',
-      description: '1BR/2BR properties',
+      description: '1BR/2BR',
       features: [
         'Suitable for 1-2 bedroom units',
         'You provide furniture',
@@ -44,7 +44,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     {
       id: 'unfurnished2' as Package,
       name: 'Unfurnished Package 2',
-      description: '3BR/4BR properties',
+      description: '3BR/4BR',
       features: [
         'Designed for larger properties',
         'You provide furniture',

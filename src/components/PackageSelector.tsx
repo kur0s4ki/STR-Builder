@@ -12,7 +12,7 @@ export function PackageSelector({ selectedPackage, onPackageChange }: PackageSel
     {
       id: 'furnished' as Package,
       name: 'Furnished Package',
-      description: '1BR/2BR/3BR',
+      description: '1BR/2BR/3BR properties',
       icon: Home,
       color: 'bg-emerald-500'
     },
