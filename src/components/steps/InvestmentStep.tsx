@@ -12,8 +12,7 @@ interface InvestmentStepProps {
   isLiveRate: boolean;
 }
 
-export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRate, isLiveRate }: InvestmentStepProps) {
-  const showFurnished = pkg === 'furnished';
+export function InvestmentStep({ inputs, onInputChange, exchangeRate, isLiveRate }: Omit<InvestmentStepProps, 'package'>) {
 
   return (
     <div className="space-y-6">
@@ -32,31 +31,20 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
           <DollarSign className="h-5 w-5 text-blue-600" />
           <div>
             <p className="font-medium text-blue-900">Exchange Rate</p>
-            <p className="text-sm text-blue-700">1 USD = {exchangeRate.toFixed(4)} CAD ({isLiveRate ? 'Live rate' : 'Fixed rate'})</p>
+            <p className="text-sm text-blue-800">1 USD = {exchangeRate.toFixed(4)} CAD ({isLiveRate ? 'Live rate' : 'Fixed rate'})</p>
           </div>
         </div>
       </div>
 
       <div className="space-y-6">
-        {/* Property & Setup Costs Section */}
+        {/* Property Details Section */}
         <div>
           <h4 className="font-medium text-slate-900 border-b border-slate-200 pb-2 mb-4">
-            Property & Setup Costs (USD)
+            Property Details (USD)
           </h4>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Furniture Cost - Hidden for furnished package */}
-            {!showFurnished && (
-              <NumberInput
-                label="Furniture Cost"
-                value={inputs.furnitureUSD}
-                onChange={(value) => onInputChange('furnitureUSD', value)}
-                placeholder="0.00"
-                currency="USD"
-              />
-            )}
-
-            <div className={showFurnished ? "sm:col-span-2" : ""}>
+            <div className="sm:col-span-2">
               <NumberInput
                 label="Est. 1 Month Rent"
                 value={inputs.rentUSD}
@@ -66,24 +54,8 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
               />
             </div>
 
-            <NumberInput
-              label="Est. LLC + EIN"
-              value={inputs.llcEinUSD}
-              onChange={(value) => onInputChange('llcEinUSD', value)}
-              placeholder="0.00"
-              currency="USD"
-            />
-
-            <NumberInput
-              label="Est. Utility Deposit"
-              value={inputs.utilityDepositUSD}
-              onChange={(value) => onInputChange('utilityDepositUSD', value)}
-              placeholder="0.00"
-              currency="USD"
-            />
-
             {!inputs.securityDepositSameAsRent && (
-              <div className="md:col-span-2">
+              <div className="sm:col-span-2">
                 <NumberInput
                   label="Est. Security Deposit"
                   value={inputs.securityDepositUSD}
@@ -104,88 +76,6 @@ export function InvestmentStep({ package: pkg, inputs, onInputChange, exchangeRa
           </div>
         </div>
 
-        {/* Additional Services Section */}
-        <div>
-          <h4 className="font-medium text-slate-900 border-b border-slate-200 pb-2 mb-4">
-            Additional Services (USD)
-          </h4>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Furnished-specific fields */}
-            {showFurnished && (
-              <>
-                <NumberInput
-                  label="Est. Stocking Essentials"
-                  value={inputs.stockingUSD}
-                  onChange={(value) => onInputChange('stockingUSD', value)}
-                  placeholder="0.00"
-                  currency="USD"
-                />
-                <NumberInput
-                  label="Est. Smart Lock & Tech Setup"
-                  value={inputs.smartLockUSD}
-                  onChange={(value) => onInputChange('smartLockUSD', value)}
-                  placeholder="0.00"
-                  currency="USD"
-                />
-              </>
-            )}
-
-            <div className={!showFurnished ? "md:col-span-2" : ""}>
-              <NumberInput
-                label="Est. Permits & License"
-                value={inputs.permitsUSD}
-                onChange={(value) => onInputChange('permitsUSD', value)}
-                placeholder="0.00"
-                currency="USD"
-              />
-            </div>
-
-            {/* Professional Photos only for furnished */}
-            {showFurnished && (
-              <NumberInput
-                label="Est. Professional Photos"
-                value={inputs.photosUSD}
-                onChange={(value) => onInputChange('photosUSD', value)}
-                placeholder="0.00"
-                currency="USD"
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Our Fee Section */}
-        <div className="pt-4 border-t border-slate-200">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="sm:col-span-2">
-              <NumberInput
-                label="Our Fee (CAD)"
-                value={inputs.feeCAD}
-                onChange={(value) => onInputChange('feeCAD', value)}
-                placeholder="0.00"
-                className="bg-emerald-50 border-emerald-200"
-                labelClassName="font-semibold text-emerald-900"
-                currency="CAD"
-              />
-              <div className="flex items-start gap-2 mt-2">
-                <Info className="h-4 w-4 text-emerald-600 mt-0.5 flex-shrink-0" />
-                <p className="text-xs text-emerald-700">
-                  Our fee is entered in CAD currency and represents the Day 1 payment to STR Launch
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Progress Indicator */}
-      <div className="bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 rounded-lg p-4 border border-[#2F80ED]/20">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-[#112F57]">Required fields completed:</span>
-          <span className="font-medium text-[#0B1224]">
-            {inputs.feeCAD > 0 ? '✓ Ready to proceed' : 'Enter Our Fee to continue'}
-          </span>
-        </div>
       </div>
     </div>
   );

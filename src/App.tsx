@@ -3,7 +3,7 @@ import { Calculator, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import { StepperProgress } from './components/StepperProgress';
 import { PackageStep } from './components/steps/PackageStep';
 import { InvestmentStep } from './components/steps/InvestmentStep';
-import { ProfitStep } from './components/steps/ProfitStep';
+
 import { ResultsStep } from './components/steps/ResultsStep';
 import { calculateInvestment, calculateProfits } from './utils/calculations';
 import { exchangeRateService } from './services/exchangeRateService';
@@ -11,30 +11,88 @@ import type { Package, InvestmentInputs, ProfitInputs } from './types';
 
 const STEPS = [
   { id: 1, title: 'Package Selection', description: 'Choose your investment package' },
-  { id: 2, title: 'Investment Details', description: 'Enter investment costs and fees' },
-  { id: 3, title: 'Profit Analysis', description: 'Estimate revenue and expenses' },
-  { id: 4, title: 'Results & Analysis', description: 'View calculations and ROI' }
+  { id: 2, title: 'Property Details', description: 'Enter rent and security deposit' },
+  { id: 3, title: 'Results & Analysis', description: 'View calculations and ROI' }
 ];
+
+// Default admin values for each package type
+const getDefaultValues = (pkg: Package): InvestmentInputs & ProfitInputs => {
+  const baseValues = {
+    rentUSD: 0,
+    securityDepositSameAsRent: true,
+    securityDepositUSD: 0,
+  };
+
+  switch (pkg) {
+    case 'furnished':
+      return {
+        ...baseValues,
+        furnitureUSD: 0,
+        llcEinUSD: 350,
+        utilityDepositUSD: 350,
+        stockingUSD: 650,
+        smartLockUSD: 350,
+        permitsUSD: 1100,
+        photosUSD: 350,
+        feeCAD: 8500,
+        monthlyGrossUSD: 4750,
+        monthlyExpensesUSD: 3498,
+      };
+    case 'unfurnished1':
+      return {
+        ...baseValues,
+        furnitureUSD: 12500,
+        llcEinUSD: 350,
+        utilityDepositUSD: 350,
+        stockingUSD: 0,
+        smartLockUSD: 0,
+        permitsUSD: 1100,
+        photosUSD: 0,
+        feeCAD: 9500,
+        monthlyGrossUSD: 5200,
+        monthlyExpensesUSD: 2800,
+      };
+    case 'unfurnished2':
+      return {
+        ...baseValues,
+        furnitureUSD: 17500,
+        llcEinUSD: 350,
+        utilityDepositUSD: 350,
+        stockingUSD: 0,
+        smartLockUSD: 0,
+        permitsUSD: 1100,
+        photosUSD: 0,
+        feeCAD: 9500,
+        monthlyGrossUSD: 6950,
+        monthlyExpensesUSD: 3700,
+      };
+    default:
+      return { ...baseValues, furnitureUSD: 0, llcEinUSD: 0, utilityDepositUSD: 0, stockingUSD: 0, smartLockUSD: 0, permitsUSD: 0, photosUSD: 0, feeCAD: 0, monthlyGrossUSD: 0, monthlyExpensesUSD: 0 };
+  }
+};
 
 function App() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedPackage, setSelectedPackage] = useState<Package>('furnished');
+
+  // Initialize with default values for furnished package
+  const defaultValues = getDefaultValues('furnished');
   const [investmentInputs, setInvestmentInputs] = useState<InvestmentInputs>({
-    furnitureUSD: 0,
-    rentUSD: 0,
-    securityDepositSameAsRent: true,
-    securityDepositUSD: 0,
-    llcEinUSD: 0,
-    utilityDepositUSD: 0,
-    stockingUSD: 0,
-    smartLockUSD: 0,
-    permitsUSD: 0,
-    photosUSD: 0,
-    feeCAD: 0,
+    furnitureUSD: defaultValues.furnitureUSD,
+    rentUSD: defaultValues.rentUSD,
+    securityDepositSameAsRent: defaultValues.securityDepositSameAsRent,
+    securityDepositUSD: defaultValues.securityDepositUSD,
+    llcEinUSD: defaultValues.llcEinUSD,
+    utilityDepositUSD: defaultValues.utilityDepositUSD,
+    stockingUSD: defaultValues.stockingUSD,
+    smartLockUSD: defaultValues.smartLockUSD,
+    permitsUSD: defaultValues.permitsUSD,
+    photosUSD: defaultValues.photosUSD,
+    feeCAD: defaultValues.feeCAD,
   });
   const [profitInputs, setProfitInputs] = useState<ProfitInputs>({
-    monthlyGrossUSD: 0,
-    monthlyExpensesUSD: 0,
+    monthlyGrossUSD: defaultValues.monthlyGrossUSD,
+    monthlyExpensesUSD: defaultValues.monthlyExpensesUSD,
   });
 
   const [investmentResults, setInvestmentResults] = useState<any>(null);
@@ -63,9 +121,9 @@ function App() {
     fetchExchangeRate();
   }, []);
 
-  // Calculate results when on results step
+  // Calculate results when on results step (now step 3)
   useEffect(() => {
-    if (currentStep === 4 && !isLoadingExchangeRate) {
+    if (currentStep === 3 && !isLoadingExchangeRate) {
       const invResults = calculateInvestment(selectedPackage, investmentInputs, exchangeRate);
       setInvestmentResults(invResults);
 
@@ -74,13 +132,30 @@ function App() {
     }
   }, [currentStep, selectedPackage, investmentInputs, profitInputs, exchangeRate, isLoadingExchangeRate]);
 
+  const handlePackageChange = (pkg: Package) => {
+    setSelectedPackage(pkg);
+    const defaults = getDefaultValues(pkg);
+
+    // Update investment inputs with defaults, preserving user-entered rent values
+    setInvestmentInputs(prev => ({
+      ...defaults,
+      rentUSD: prev.rentUSD, // Keep user's rent input
+      securityDepositUSD: prev.securityDepositSameAsRent ? prev.rentUSD : prev.securityDepositUSD, // Keep user's security deposit logic
+      securityDepositSameAsRent: prev.securityDepositSameAsRent,
+    }));
+
+    // Update profit inputs with defaults
+    setProfitInputs({
+      monthlyGrossUSD: defaults.monthlyGrossUSD,
+      monthlyExpensesUSD: defaults.monthlyExpensesUSD,
+    });
+  };
+
   const updateInvestmentInput = (field: keyof InvestmentInputs, value: number | boolean) => {
     setInvestmentInputs(prev => ({ ...prev, [field]: value }));
   };
 
-  const updateProfitInput = (field: keyof ProfitInputs, value: number) => {
-    setProfitInputs(prev => ({ ...prev, [field]: value }));
-  };
+
 
   const handleNext = () => {
     if (currentStep < STEPS.length) {
@@ -97,22 +172,23 @@ function App() {
   const handleStartNew = () => {
     setCurrentStep(1);
     setSelectedPackage('furnished');
+    const defaults = getDefaultValues('furnished');
     setInvestmentInputs({
-      furnitureUSD: 0,
-      rentUSD: 0,
+      furnitureUSD: defaults.furnitureUSD,
+      rentUSD: 0, // Reset user input
       securityDepositSameAsRent: true,
-      securityDepositUSD: 0,
-      llcEinUSD: 0,
-      utilityDepositUSD: 0,
-      stockingUSD: 0,
-      smartLockUSD: 0,
-      permitsUSD: 0,
-      photosUSD: 0,
-      feeCAD: 0,
+      securityDepositUSD: 0, // Reset user input
+      llcEinUSD: defaults.llcEinUSD,
+      utilityDepositUSD: defaults.utilityDepositUSD,
+      stockingUSD: defaults.stockingUSD,
+      smartLockUSD: defaults.smartLockUSD,
+      permitsUSD: defaults.permitsUSD,
+      photosUSD: defaults.photosUSD,
+      feeCAD: defaults.feeCAD,
     });
     setProfitInputs({
-      monthlyGrossUSD: 0,
-      monthlyExpensesUSD: 0,
+      monthlyGrossUSD: defaults.monthlyGrossUSD,
+      monthlyExpensesUSD: defaults.monthlyExpensesUSD,
     });
     setInvestmentResults(null);
     setProfitResults(null);
@@ -130,9 +206,7 @@ function App() {
       case 1:
         return true; // Package is always selected
       case 2:
-        return investmentInputs.feeCAD > 0; // At minimum, fee should be entered
-      case 3:
-        return profitInputs.monthlyGrossUSD > 0; // At minimum, gross revenue should be entered
+        return investmentInputs.rentUSD > 0; // Only require rent to be entered
       default:
         return true;
     }
@@ -156,13 +230,12 @@ function App() {
         return (
           <PackageStep
             selectedPackage={selectedPackage}
-            onPackageChange={setSelectedPackage}
+            onPackageChange={handlePackageChange}
           />
         );
       case 2:
         return (
           <InvestmentStep
-            package={selectedPackage}
             inputs={investmentInputs}
             onInputChange={updateInvestmentInput}
             exchangeRate={exchangeRate}
@@ -170,13 +243,6 @@ function App() {
           />
         );
       case 3:
-        return (
-          <ProfitStep
-            inputs={profitInputs}
-            onInputChange={updateProfitInput}
-          />
-        );
-      case 4:
         return (
           <ResultsStep
             package={selectedPackage}
@@ -213,7 +279,7 @@ function App() {
           </div>
 
           {/* Navigation */}
-          {currentStep < 4 && (
+          {currentStep < 3 && (
             <div className="bg-white/50 backdrop-blur-sm px-4 sm:px-6 py-4 border-t border-gray-200/30">
               <div className="flex items-center justify-between gap-3">
                 <button
@@ -242,8 +308,8 @@ function App() {
                     }
                   `}
                 >
-                  <span className="hidden xs:inline">{currentStep === 3 ? 'Calculate Results' : 'Next'}</span>
-                  <span className="xs:hidden">{currentStep === 3 ? 'Calculate' : 'Next'}</span>
+                  <span className="hidden xs:inline">{currentStep === 2 ? 'Calculate Results' : 'Next'}</span>
+                  <span className="xs:hidden">{currentStep === 2 ? 'Calculate' : 'Next'}</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>

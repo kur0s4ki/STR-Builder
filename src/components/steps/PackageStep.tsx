@@ -1,5 +1,5 @@
 import React from 'react';
-import { Armchair, Key, Crown, Check } from 'lucide-react';
+import { Armchair, Key, Crown, Check, Info } from 'lucide-react';
 import type { Package } from '../../types';
 
 interface PackageStepProps {
@@ -115,21 +115,40 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
                 <h4 className="font-semibold text-slate-900 mb-1 text-base sm:text-lg">{pkg.name}</h4>
                 <p className="text-sm text-slate-600">{pkg.description}</p>
               </div>
-
-              {/* Features List */}
-              <ul className="space-y-1.5 sm:space-y-2">
-                {pkg.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-slate-600">
-                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-2 flex-shrink-0" />
-                    <span className="leading-relaxed">{feature}</span>
-                  </li>
-                ))}
-              </ul>
             </button>
           );
         })}
       </div>
 
+      {/* Disclaimer Section */}
+      <div className="mt-8 bg-blue-50 rounded-lg p-4 border border-blue-200">
+        <div className="flex items-start gap-3">
+          <Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+          <div>
+            <h4 className="font-medium text-blue-900 mb-2">Disclaimer</h4>
+            <div className="text-sm text-blue-800 space-y-2 leading-relaxed">
+              <p>
+                The revenue and expense estimates provided by STR Launch are for informational and planning purposes only. These projections are generated using third-party software tools, market data, and comparable short-term rental performance. While we use reliable technology and data sources to create these estimates, they are not guaranteed and should not be relied upon as exact outcomes.
+              </p>
+              <p>
+                These figures represent averages we have seen across the market, our properties, client properties and are provided for illustrative purposes only. Your actual results may be higher or lower depending on your specific property, location, and management. No promises or guarantees of performance are being made.
+              </p>
+              <p>
+                Short-term rental markets can fluctuate due to seasonality, local regulations, pricing trends, competition, and other variables beyond our control. Actual results may be higher or lower than projected.
+              </p>
+              <p>
+                The calculator includes general assumptions such as average nightly rates, occupancy, maintenance reserves, and vacancy estimates, all of which are subject to change. These figures are meant to help you assess the potential performance of your STR business — not to guarantee returns.
+              </p>
+              <p>
+                STR Launch is not a financial advisor, real estate brokerage, or licensed investment firm. You should perform your own due diligence and consult with licensed professionals (such as real estate agents, mortgage brokers, and tax advisors) before making any investment decisions.
+              </p>
+              <p>
+                By using this calculator or reviewing any data provided, you acknowledge that all investments carry risk, and STR Launch is not liable for any decisions made based on these projections.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

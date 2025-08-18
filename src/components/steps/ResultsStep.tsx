@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, TrendingUp, DollarSign, Target, Calendar, Percent, RotateCcw } from 'lucide-react';
+import { BarChart3, TrendingUp, DollarSign, Target, Calendar, Percent, RotateCcw, Scale } from 'lucide-react';
 import { getPackageTitle } from '../../utils/calculations';
 import type { Package, InvestmentResults, ProfitResults } from '../../types';
 
@@ -12,14 +12,12 @@ interface ResultsStepProps {
   onStartNew?: () => void;
 }
 
-type TabType = 'investment' | 'profits' | 'summary';
+type TabType = 'investment' | 'profits' | 'summary' | 'comparison';
 
 export function ResultsStep({
   package: pkg,
   investmentResults,
   profitResults,
-  exchangeRate,
-  isLiveRate,
   onStartNew
 }: ResultsStepProps) {
   const [activeTab, setActiveTab] = useState<TabType>('summary');
@@ -32,24 +30,27 @@ export function ResultsStep({
     );
   }
 
-  const formatValue = (value: number | string | null, isPercent = false): string => {
+  const formatValue = (value: number | string | null, isPercent = false, includeDollarSign = true): string => {
     if (value === null || value === "N/A") return "N/A";
     if (typeof value === 'string') return value;
-    
+
     if (isPercent) {
       return `${(value * 100).toFixed(2)}%`;
     }
-    
-    return typeof value === 'number' ? value.toLocaleString('en-US', { 
-      minimumFractionDigits: 2, 
-      maximumFractionDigits: 2 
+
+    const formatted = typeof value === 'number' ? value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     }) : String(value);
+
+    return includeDollarSign ? `$${formatted}` : formatted;
   };
 
   const tabs = [
     { id: 'summary' as TabType, label: 'Executive Summary', icon: Target },
     { id: 'investment' as TabType, label: 'Investment Breakdown', icon: BarChart3 },
-    { id: 'profits' as TabType, label: 'Profit Analysis', icon: TrendingUp }
+    { id: 'profits' as TabType, label: 'Profit Analysis', icon: TrendingUp },
+    { id: 'comparison' as TabType, label: 'ROI Comparison', icon: Scale }
   ];
 
   // Extract key metrics for summary
@@ -190,11 +191,6 @@ export function ResultsStep({
             <h3 className="font-semibold text-[#0B1224]">
               {getPackageTitle(pkg, 'investment')}
             </h3>
-            <div className="inline-block bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 px-3 py-1 rounded border border-[#2F80ED]/20 mt-1">
-              <p className="text-sm text-[#0B1224] font-medium">
-                {isLiveRate ? 'Live' : 'Fixed'} Rate USD→CAD: {exchangeRate.toFixed(4)}
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -310,6 +306,76 @@ export function ResultsStep({
     </div>
   );
 
+  const renderComparisonTab = () => {
+    const comparisonData = [
+      { investment: 'Gold', roi: '3% – 8%' },
+      { investment: 'Stocks (S&P 500)', roi: '7% – 15%' },
+      { investment: 'Index Funds', roi: '7% – 10%' },
+      { investment: 'Traditional Real Estate', roi: '6% – 12%' },
+      { investment: 'Bank Savings', roi: '1% – 5%' },
+      { investment: 'Bonds', roi: '4% – 6%' },
+      { investment: 'High-Yield ETFs', roi: '6% – 10%' },
+      { investment: 'Starting a Business', roi: '20% – 50%' },
+      { investment: 'Buying a Franchise', roi: '5% – 15%' },
+      { investment: 'STR Rental Arbitrage (Your Result)', roi: formatValue(year1ROI, true, false) }
+    ];
+
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <h4 className="text-lg font-semibold text-slate-900 mb-2">
+            How Does STR Rental Arbitrage Stack Up?
+          </h4>
+          <p className="text-sm text-slate-600 mb-4">
+            Compare the average 1-year ROI of our short-term rental co-leasing model against other common investment options.
+          </p>
+          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+            <p className="text-sm text-blue-800">
+              <strong>Note:</strong> These figures are based on industry averages and historical data. Returns are not guaranteed and individual results may vary depending on market conditions, execution, and timing.
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto -mx-4 sm:mx-0">
+          <table className="w-full min-w-[500px]">
+            <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#2F80ED]/5">
+              <tr>
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                  Investment Type
+                </th>
+                <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                  Estimated 1-Year ROI
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200/50">
+              {comparisonData.map((item, index) => {
+                const isOurResult = item.investment.includes('Your Result');
+
+                return (
+                  <tr
+                    key={index}
+                    className={`
+                      ${isOurResult ? 'bg-gradient-to-r from-[#2F80ED]/10 to-[#56CCF2]/10 font-semibold' : 'bg-white/50'}
+                      hover:bg-gray-50/50 transition-colors duration-150
+                    `}
+                  >
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
+                      {item.investment}
+                    </td>
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
+                      {item.roi}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -352,6 +418,7 @@ export function ResultsStep({
         {activeTab === 'summary' && renderSummaryTab()}
         {activeTab === 'investment' && renderInvestmentTab()}
         {activeTab === 'profits' && renderProfitsTab()}
+        {activeTab === 'comparison' && renderComparisonTab()}
       </div>
 
       {/* Start New Calculation Button */}
