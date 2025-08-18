@@ -195,18 +195,18 @@ export function ResultsStep({
         </div>
       </div>
 
-      <div className="overflow-x-auto -mx-4 sm:mx-0">
-        <table className="w-full min-w-[600px]">
+      <div className="overflow-x-auto">
+        <table className="w-full">
           <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#2F80ED]/5">
             <tr>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Description
               </th>
-              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                CAD Amount
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                CAD
               </th>
-              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                USD Amount
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider hidden sm:table-cell">
+                USD
               </th>
             </tr>
           </thead>
@@ -224,13 +224,18 @@ export function ResultsStep({
                     hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-[#0B1224] leading-tight">
                     {row.label}
                   </td>
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
-                    {formatValue(row.cadAmount)} CAD
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold">
+                    <div className="flex flex-col sm:block">
+                      <span>{formatValue(row.cadAmount)} CAD</span>
+                      <span className="text-[#112F57] text-xs sm:hidden mt-1">
+                        {row.usdAmount !== null ? `${formatValue(row.usdAmount)} USD` : ''}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#112F57] whitespace-nowrap">
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right font-mono text-[#112F57] hidden sm:table-cell">
                     {row.usdAmount !== null ? `${formatValue(row.usdAmount)} USD` : '—'}
                   </td>
                 </tr>
@@ -253,18 +258,18 @@ export function ResultsStep({
         </div>
       </div>
 
-      <div className="overflow-x-auto -mx-4 sm:mx-0">
-        <table className="w-full min-w-[600px]">
+      <div className="overflow-x-auto">
+        <table className="w-full">
           <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#56CCF2]/5">
             <tr>
-              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                 Metric
               </th>
-              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                CAD Value
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                CAD
               </th>
-              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                USD Value
+              <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider hidden sm:table-cell">
+                USD
               </th>
             </tr>
           </thead>
@@ -283,18 +288,25 @@ export function ResultsStep({
                     hover:bg-gray-50/50 transition-colors duration-150
                   `}
                 >
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-[#0B1224] leading-tight">
                     {row.label}
                   </td>
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
-                    {isROI
-                      ? formatValue(row.cadAmount, true)
-                      : isTimeline
-                        ? formatValue(row.cadAmount) + (row.cadAmount !== "N/A" ? " months" : "")
-                        : formatValue(row.cadAmount) + (isROI || isTimeline ? "" : " CAD")
-                    }
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold">
+                    <div className="flex flex-col sm:block">
+                      <span>
+                        {isROI
+                          ? formatValue(row.cadAmount, true)
+                          : isTimeline
+                            ? formatValue(row.cadAmount) + (row.cadAmount !== "N/A" ? " months" : "")
+                            : formatValue(row.cadAmount) + (isROI || isTimeline ? "" : " CAD")
+                        }
+                      </span>
+                      <span className="text-[#112F57] text-xs sm:hidden mt-1">
+                        {row.usdAmount !== null && !isROI && !isTimeline ? `${formatValue(row.usdAmount)} USD` : ''}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#112F57] whitespace-nowrap">
+                  <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right font-mono text-[#112F57] hidden sm:table-cell">
                     {row.usdAmount !== null ? `${formatValue(row.usdAmount)} USD` : '—'}
                   </td>
                 </tr>
@@ -336,15 +348,15 @@ export function ResultsStep({
           </div>
         </div>
 
-        <div className="overflow-x-auto -mx-4 sm:mx-0">
-          <table className="w-full min-w-[500px]">
+        <div className="overflow-x-auto">
+          <table className="w-full">
             <thead className="bg-gradient-to-r from-[#112F57]/5 to-[#2F80ED]/5">
               <tr>
-                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-[#0B1224] uppercase tracking-wider">
                   Investment Type
                 </th>
-                <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
-                  Estimated 1-Year ROI
+                <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-[#0B1224] uppercase tracking-wider">
+                  1-Year ROI
                 </th>
               </tr>
             </thead>
@@ -360,10 +372,10 @@ export function ResultsStep({
                       hover:bg-gray-50/50 transition-colors duration-150
                     `}
                   >
-                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-[#0B1224] leading-tight">
+                    <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-[#0B1224] leading-tight">
                       {item.investment}
                     </td>
-                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold whitespace-nowrap">
+                    <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right font-mono text-[#2F80ED] font-semibold">
                       {item.roi}
                     </td>
                   </tr>

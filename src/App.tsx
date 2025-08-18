@@ -100,6 +100,7 @@ function App() {
   const [exchangeRate, setExchangeRate] = useState<number>(1.35); // Default fallback rate
   const [isLiveRate, setIsLiveRate] = useState<boolean>(false); // Track if rate is live or fixed
   const [isLoadingExchangeRate, setIsLoadingExchangeRate] = useState<boolean>(true);
+  const [isCalculating, setIsCalculating] = useState<boolean>(false);
 
   // Fetch exchange rate on app load
   useEffect(() => {
@@ -157,8 +158,14 @@ function App() {
 
 
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < STEPS.length) {
+      // If going to results step (step 3), show loading for 3 seconds
+      if (currentStep === 2) {
+        setIsCalculating(true);
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        setIsCalculating(false);
+      }
       setCurrentStep(currentStep + 1);
     }
   };
@@ -213,6 +220,18 @@ function App() {
   };
 
   const renderStepContent = () => {
+    // Show calculation loading indicator
+    if (isCalculating) {
+      return (
+        <div className="text-center py-12">
+          <div className="inline-flex items-center gap-3">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#2F80ED]"></div>
+            <span className="text-[#0B1224]">Calculating your investment results...</span>
+          </div>
+        </div>
+      );
+    }
+
     // Show loading indicator while fetching exchange rate (except for step 1 which doesn't need it)
     if (isLoadingExchangeRate && currentStep > 1) {
       return (
@@ -282,27 +301,23 @@ function App() {
           {currentStep < 3 && (
             <div className="bg-white/50 backdrop-blur-sm px-4 sm:px-6 py-4 border-t border-gray-200/30">
               <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={handlePrevious}
-                  disabled={currentStep === 1}
-                  className={`
-                    flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 font-medium min-h-[44px] min-w-[44px] text-sm sm:text-base
-                    ${currentStep === 1
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-gray-300 hover:to-gray-400 shadow-md hover:shadow-lg'
-                    }
-                  `}
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <span className="hidden xs:inline">Previous</span>
-                </button>
+                {currentStep > 1 && (
+                  <button
+                    onClick={handlePrevious}
+                    className="flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full transition-all duration-200 font-medium min-h-[44px] min-w-[44px] text-sm sm:text-base bg-gradient-to-r from-gray-200 to-gray-300 text-gray-700 hover:from-gray-300 hover:to-gray-400 shadow-md hover:shadow-lg"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    <span className="hidden xs:inline">Previous</span>
+                  </button>
+                )}
+                {currentStep === 1 && <div></div>}
 
                 <button
                   onClick={handleNext}
-                  disabled={!canProceed()}
+                  disabled={!canProceed() || isCalculating}
                   className={`
                     flex items-center justify-center gap-2 px-4 sm:px-8 py-3 rounded-full transition-all duration-200 font-medium min-h-[44px] text-sm sm:text-base
-                    ${!canProceed()
+                    ${!canProceed() || isCalculating
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2] text-white hover:from-[#4A90E2] hover:to-[#6BDCF7] shadow-lg hover:shadow-xl transform hover:scale-105'
                     }
