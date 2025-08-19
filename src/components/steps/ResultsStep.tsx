@@ -60,6 +60,8 @@ export function ResultsStep({
   const roiTimeline = profitResults.rows.find(r => r.label.includes('Timeline'))?.cadAmount || 'N/A';
   const year1Profit = profitResults.rows.find(r => r.label.includes('Year 1'))?.cadAmount || 0;
   const year2ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 2)'))?.cadAmount || 0;
+  const year1ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 1)'))?.cadAmount || 0;
+
 
   const renderSummaryTab = () => (
     <div className="space-y-6">
@@ -119,7 +121,7 @@ export function ResultsStep({
           </div>
           <div className="flex items-baseline gap-1">
             <span className="currency-display font-bold text-[#0B1224] leading-none">
-              {formatValue(year2ROI, true)}
+              {formatValue(year1ROI, true)}
             </span>
           </div>
         </div>
