@@ -26,18 +26,20 @@ export function ResultsDisplay({
     );
   }
 
-  const formatValue = (value: number | string | null, isPercent = false): string => {
+  const formatValue = (value: number | string | null, isPercent = false, includeDollarSign = true): string => {
     if (value === null || value === "N/A") return "N/A";
     if (typeof value === 'string') return value;
-    
+
     if (isPercent) {
       return `${(value * 100).toFixed(2)}%`;
     }
-    
-    return typeof value === 'number' ? value.toLocaleString('en-US', { 
-      minimumFractionDigits: 2, 
-      maximumFractionDigits: 2 
+
+    const formatted = typeof value === 'number' ? value.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     }) : String(value);
+
+    return includeDollarSign ? `$${formatted}` : formatted;
   };
 
   return (
@@ -147,10 +149,10 @@ export function ResultsDisplay({
                       {row.label}
                     </td>
                     <td className="px-6 py-4 text-sm text-right font-mono">
-                      {isROI 
+                      {isROI
                         ? formatValue(row.cadAmount, true)
-                        : isTimeline 
-                          ? formatValue(row.cadAmount) + (row.cadAmount !== "N/A" ? " months" : "")
+                        : isTimeline
+                          ? formatValue(row.cadAmount, false, false) + (row.cadAmount !== "N/A" ? " months" : "")
                           : formatValue(row.cadAmount)
                       }
                     </td>

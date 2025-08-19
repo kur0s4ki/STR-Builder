@@ -102,7 +102,7 @@ export function ResultsStep({
           </div>
           <div className="flex items-baseline gap-1">
             <span className="currency-display font-bold text-[#0B1224] leading-none">
-              {roiTimeline === 'N/A' ? 'N/A' : formatValue(roiTimeline)}
+              {roiTimeline === 'N/A' ? 'N/A' : formatValue(roiTimeline, false, false)}
             </span>
             {roiTimeline !== 'N/A' && (
               <span className="currency-label font-medium text-[#0B1224] leading-none">
@@ -297,7 +297,7 @@ export function ResultsStep({
                         {isROI
                           ? formatValue(row.cadAmount, true)
                           : isTimeline
-                            ? formatValue(row.cadAmount) + (row.cadAmount !== "N/A" ? " months" : "")
+                            ? formatValue(row.cadAmount, false, false) + (row.cadAmount !== "N/A" ? " months" : "")
                             : formatValue(row.cadAmount) + (isROI || isTimeline ? "" : " CAD")
                         }
                       </span>
