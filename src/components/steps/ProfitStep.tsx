@@ -37,9 +37,10 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
               placeholder="0.00"
               className="bg-white/90 backdrop-blur-sm border-[#2F80ED]/20 focus:border-[#2F80ED] focus:ring-[#2F80ED]"
               currency="USD"
+              disabled={true}
             />
             <p className="text-xs text-[#112F57] mt-2">
-              Include all rental income before expenses
+              Calculated automatically based on rent (read-only)
             </p>
           </div>
 
@@ -55,9 +56,10 @@ export function ProfitStep({ inputs, onInputChange }: ProfitStepProps) {
               placeholder="0.00"
               className="bg-white/90 backdrop-blur-sm border-[#112F57]/20 focus:border-[#112F57] focus:ring-[#112F57]"
               currency="USD"
+              disabled={true}
             />
             <p className="text-xs text-[#112F57] mt-2">
-              Include utilities, cleaning, maintenance, management fees, etc.
+              Calculated automatically based on rent (read-only)
             </p>
           </div>
         </div>

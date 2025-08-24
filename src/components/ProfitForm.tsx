@@ -22,14 +22,22 @@ export function ProfitForm({ inputs, onInputChange }: ProfitFormProps) {
           value={inputs.monthlyGrossUSD}
           onChange={(value) => onInputChange('monthlyGrossUSD', value)}
           placeholder="0.00"
+          disabled={true}
         />
+        <p className="text-xs text-slate-600 -mt-2">
+          Calculated automatically based on rent (read-only)
+        </p>
 
         <NumberInput
           label="Est. Monthly Expenses (USD)"
           value={inputs.monthlyExpensesUSD}
           onChange={(value) => onInputChange('monthlyExpensesUSD', value)}
           placeholder="0.00"
+          disabled={true}
         />
+        <p className="text-xs text-slate-600 -mt-2">
+          Calculated automatically based on rent (read-only)
+        </p>
       </div>
     </div>
   );

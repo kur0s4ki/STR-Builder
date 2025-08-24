@@ -21,6 +21,33 @@ function n(x: number): number {
   return Number.isFinite(x) ? x : 0;
 }
 
+// Package multipliers for revenue and expenses based on rent
+const PACKAGE_MULTIPLIERS = {
+  furnished: {
+    revenue: 1.58,
+    expenses: 1.16
+  },
+  unfurnished1: {
+    revenue: 2.3,
+    expenses: 2.7
+  },
+  unfurnished2: {
+    revenue: 2.3,
+    expenses: 2.7
+  }
+};
+
+// Calculate revenue and expenses based on rent and package type
+export function calculatePackageValues(pkg: Package, rentUSD: number): { monthlyGrossUSD: number, monthlyExpensesUSD: number } {
+  const multipliers = PACKAGE_MULTIPLIERS[pkg];
+  const rentValue = n(rentUSD);
+  
+  return {
+    monthlyGrossUSD: money2(rentValue * multipliers.revenue),
+    monthlyExpensesUSD: money2(rentValue * multipliers.expenses)
+  };
+}
+
 export function calculateInvestment(
   pkg: Package,
   inputs: InvestmentInputs,

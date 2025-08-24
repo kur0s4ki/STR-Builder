@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Calculator, ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { StepperProgress } from './components/StepperProgress';
 import { PackageStep } from './components/steps/PackageStep';
 import { InvestmentStep } from './components/steps/InvestmentStep';
 
 import { ResultsStep } from './components/steps/ResultsStep';
-import { calculateInvestment, calculateProfits } from './utils/calculations';
+import { calculateInvestment, calculateProfits, calculatePackageValues } from './utils/calculations';
 import { exchangeRateService } from './services/exchangeRateService';
 import type { Package, InvestmentInputs, ProfitInputs } from './types';
 
@@ -136,6 +136,9 @@ function App() {
   const handlePackageChange = (pkg: Package) => {
     setSelectedPackage(pkg);
     const defaults = getDefaultValues(pkg);
+    
+    // Preserve the current rent value
+    const currentRentUSD = investmentInputs.rentUSD;
 
     // Update investment inputs with defaults, preserving user-entered rent values
     setInvestmentInputs(prev => ({
@@ -145,15 +148,34 @@ function App() {
       securityDepositSameAsRent: prev.securityDepositSameAsRent,
     }));
 
-    // Update profit inputs with defaults
-    setProfitInputs({
-      monthlyGrossUSD: defaults.monthlyGrossUSD,
-      monthlyExpensesUSD: defaults.monthlyExpensesUSD,
-    });
+    // If user has entered a rent value, calculate profit inputs based on that
+    if (currentRentUSD > 0) {
+      const { monthlyGrossUSD, monthlyExpensesUSD } = calculatePackageValues(pkg, currentRentUSD);
+      setProfitInputs({
+        monthlyGrossUSD,
+        monthlyExpensesUSD,
+      });
+    } else {
+      // Otherwise use default values
+      setProfitInputs({
+        monthlyGrossUSD: defaults.monthlyGrossUSD,
+        monthlyExpensesUSD: defaults.monthlyExpensesUSD,
+      });
+    }
   };
 
   const updateInvestmentInput = (field: keyof InvestmentInputs, value: number | boolean) => {
     setInvestmentInputs(prev => ({ ...prev, [field]: value }));
+    
+    // If rent is updated, automatically calculate revenue and expenses based on package
+    if (field === 'rentUSD' && typeof value === 'number') {
+      const { monthlyGrossUSD, monthlyExpensesUSD } = calculatePackageValues(selectedPackage, value);
+      setProfitInputs(prev => ({ 
+        ...prev,
+        monthlyGrossUSD,
+        monthlyExpensesUSD
+      }));
+    }
   };
 
 

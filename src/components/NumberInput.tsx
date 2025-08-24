@@ -8,6 +8,7 @@ interface NumberInputProps {
   className?: string;
   labelClassName?: string;
   currency?: 'USD' | 'CAD';
+  disabled?: boolean;
 }
 
 export function NumberInput({
@@ -17,7 +18,8 @@ export function NumberInput({
   placeholder = "0",
   className = "",
   labelClassName = "",
-  currency
+  currency,
+  disabled = false
 }: NumberInputProps) {
   const [displayValue, setDisplayValue] = React.useState<string>('');
 
@@ -75,13 +77,13 @@ export function NumberInput({
           autoComplete="off"
           autoCorrect="off"
           spellCheck="false"
+          disabled={disabled}
           className={`
             w-full px-3 sm:px-4 py-3 sm:py-3 border border-gray-300 rounded-lg shadow-sm text-base sm:text-base min-h-[44px]
-            focus:ring-2 focus:ring-[#2F80ED] focus:border-[#2F80ED]
+            ${!disabled ? 'focus:ring-2 focus:ring-[#2F80ED] focus:border-[#2F80ED] hover:border-gray-400 hover:shadow-md' : 'bg-slate-50 text-slate-500 cursor-not-allowed'}
             placeholder:text-gray-400 transition-all duration-200
             bg-white/90 backdrop-blur-sm
             [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none
-            hover:border-gray-400 hover:shadow-md
             ${currency ? 'pr-16 sm:pr-12' : ''}
             ${className}
           `}
