@@ -29,11 +29,11 @@ const PACKAGE_MULTIPLIERS = {
   },
   unfurnished1: {
     revenue: 2.3,
-    expenses: 1.7
+    expenses: 1.27
   },
   unfurnished2: {
     revenue: 2.3,
-    expenses: 1.7
+    expenses: 1.27
   }
 };
 
