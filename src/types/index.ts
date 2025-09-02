@@ -1,4 +1,4 @@
-export type Package = 'furnished' | 'unfurnished1' | 'unfurnished2';
+export type Package = 'e2' | 'unfurnished1' | 'unfurnished2';
 
 export interface InvestmentInputs {
   furnitureUSD: number;

@@ -1,33 +1,33 @@
 import React from 'react';
-import { Armchair, Key, Crown, Check, Info } from 'lucide-react';
+import { Key, Crown, Check, Info, Shield } from 'lucide-react';
 import type { Package } from '../../types';
 
 interface PackageStepProps {
   selectedPackage: Package;
   onPackageChange: (pkg: Package) => void;
+  isE2Calculator: boolean;
 }
 
-export function PackageStep({ selectedPackage, onPackageChange }: PackageStepProps) {
-  const packages = [
+export function PackageStep({ selectedPackage, onPackageChange, isE2Calculator }: PackageStepProps) {
+  const allPackages = [
     {
-      id: 'furnished' as Package,
-      name: 'Furnished Package',
-      description: '1BR/2BR/3BR',
+      id: 'e2' as Package,
+      name: 'E2 Unfurnished Package',
+      description: '3BR/4BR',
       features: [
-        'Furniture included in package',
-        'Stocking essentials setup',
-        'Smart lock & tech installation',
-        'Professional photography',
-        'Complete turnkey solution'
+        'Fully managed business',
+        'High revenue potential',
+        'Includes all necessary permits',
+        'Turnkey investment solution'
       ],
-      icon: Armchair,
-      color: 'bg-gradient-to-r from-[#2F80ED] to-[#56CCF2]',
-      borderColor: 'border-[#2F80ED]',
-      bgColor: 'bg-gradient-to-br from-[#2F80ED]/10 to-[#56CCF2]/10'
+      icon: Shield,
+      color: 'bg-gradient-to-r from-[#16A34A] to-[#22C55E]',
+      borderColor: 'border-[#16A34A]',
+      bgColor: 'bg-gradient-to-br from-[#16A34A]/10 to-[#22C55E]/10'
     },
     {
       id: 'unfurnished1' as Package,
-      name: 'Unfurnished Package 1',
+      name: 'Unfurnished 1',
       description: '1BR/2BR',
       features: [
         'Suitable for 1-2 bedroom units',
@@ -43,7 +43,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     },
     {
       id: 'unfurnished2' as Package,
-      name: 'Unfurnished Package 2',
+      name: 'Unfurnished 2',
       description: '1BR/2BR',
       features: [
         'Designed for larger properties',
@@ -59,6 +59,12 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     }
   ];
 
+  const packages = isE2Calculator
+    ? allPackages.filter(p => p.id === 'e2')
+    : allPackages.filter(p => p.id !== 'e2');
+
+  const title = isE2Calculator ? 'E2Investment Calculator' : 'Choose Your Investment Package';
+
   return (
     <div className="space-y-6">
       {/* Logo Section */}
@@ -72,14 +78,14 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
 
       <div className="text-center">
         <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
-          Choose Your Investment Package
+          {title}
         </h3>
         <p className="text-slate-600">
           Select the package that best fits your property type and investment goals
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className={`grid grid-cols-1 ${packages.length > 1 ? 'sm:grid-cols-2' : 'sm:grid-cols-1'} lg:grid-cols-${packages.length > 1 ? '2' : '1'} gap-4 sm:gap-6 max-w-3xl mx-auto`}>
         {packages.map((pkg) => {
           const Icon = pkg.icon;
           const isSelected = selectedPackage === pkg.id;
@@ -113,14 +119,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
               {/* Package Info */}
               <div className="mb-3 sm:mb-4">
                 <h4 className="font-semibold text-slate-900 mb-1 text-sm sm:text-xs md:text-sm lg:text-base leading-tight">
-                  {pkg.name.includes('Package') ? (
-                    <>
-                      <span className="inline sm:block md:inline">{pkg.name.split(' Package')[0]}</span>
-                      <span className="whitespace-nowrap"> Package{pkg.name.includes('Package 1') ? '\u00A01' : pkg.name.includes('Package 2') ? '\u00A02' : ''}</span>
-                    </>
-                  ) : (
-                    <span>{pkg.name}</span>
-                  )}
+                  {pkg.name}
                 </h4>
                 <p className="text-sm text-slate-600">{pkg.description}</p>
               </div>

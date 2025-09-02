@@ -20,7 +20,6 @@ export function StepperProgress({ steps, currentStep, onStepClick }: StepperProg
         {steps.map((step, index) => {
           const isCompleted = currentStep > step.id;
           const isCurrent = currentStep === step.id;
-          const isUpcoming = currentStep < step.id;
 
           return (
             <React.Fragment key={step.id}>

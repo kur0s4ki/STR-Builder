@@ -1,5 +1,5 @@
 import React from 'react';
-import { DollarSign, Info } from 'lucide-react';
+import { DollarSign } from 'lucide-react';
 import { NumberInput } from '../NumberInput';
 import { CheckboxInput } from '../CheckboxInput';
 import type { Package, InvestmentInputs } from '../../types';

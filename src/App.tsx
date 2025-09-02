@@ -7,7 +7,7 @@ import { InvestmentStep } from './components/steps/InvestmentStep';
 import { ResultsStep } from './components/steps/ResultsStep';
 import { calculateInvestment, calculateProfits, calculatePackageValues } from './utils/calculations';
 import { exchangeRateService } from './services/exchangeRateService';
-import type { Package, InvestmentInputs, ProfitInputs } from './types';
+import type { Package, InvestmentInputs, ProfitInputs, InvestmentResults, ProfitResults } from './types';
 
 const STEPS = [
   { id: 1, title: 'Package Selection', description: 'Choose your investment package' },
@@ -24,19 +24,19 @@ const getDefaultValues = (pkg: Package): InvestmentInputs & ProfitInputs => {
   };
 
   switch (pkg) {
-    case 'furnished':
+    case 'e2':
       return {
         ...baseValues,
-        furnitureUSD: 0,
+        furnitureUSD: 17500,
         llcEinUSD: 350,
         utilityDepositUSD: 350,
-        stockingUSD: 650,
-        smartLockUSD: 350,
-        permitsUSD: 1100,
-        photosUSD: 350,
+        stockingUSD: 0,
+        smartLockUSD: 0,
+        permitsUSD: 1000,
+        photosUSD: 0,
         feeCAD: 8500,
-        monthlyGrossUSD: 4750,
-        monthlyExpensesUSD: 3498,
+        monthlyGrossUSD: 6900,
+        monthlyExpensesUSD: 3810,
       };
     case 'unfurnished1':
       return {
@@ -71,12 +71,15 @@ const getDefaultValues = (pkg: Package): InvestmentInputs & ProfitInputs => {
   }
 };
 
-function App() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [selectedPackage, setSelectedPackage] = useState<Package>('furnished');
+const isE2Calculator = window.location.pathname.startsWith('/e2');
 
-  // Initialize with default values for furnished package
-  const defaultValues = getDefaultValues('furnished');
+function App() {
+  const initialPackage = isE2Calculator ? 'e2' : 'unfurnished1';
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedPackage, setSelectedPackage] = useState<Package>(initialPackage);
+
+  // Initialize with default values
+  const defaultValues = getDefaultValues(initialPackage);
   const [investmentInputs, setInvestmentInputs] = useState<InvestmentInputs>({
     furnitureUSD: defaultValues.furnitureUSD,
     rentUSD: defaultValues.rentUSD,
@@ -95,12 +98,16 @@ function App() {
     monthlyExpensesUSD: defaultValues.monthlyExpensesUSD,
   });
 
-  const [investmentResults, setInvestmentResults] = useState<any>(null);
-  const [profitResults, setProfitResults] = useState<any>(null);
+  const [investmentResults, setInvestmentResults] = useState<InvestmentResults | null>(null);
+  const [profitResults, setProfitResults] = useState<ProfitResults | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number>(1.35); // Default fallback rate
   const [isLiveRate, setIsLiveRate] = useState<boolean>(false); // Track if rate is live or fixed
   const [isLoadingExchangeRate, setIsLoadingExchangeRate] = useState<boolean>(true);
   const [isCalculating, setIsCalculating] = useState<boolean>(false);
+
+  useEffect(() => {
+    document.title = isE2Calculator ? 'E2 Investment Calculator' : 'Investment Calculator';
+  }, []);
 
   // Fetch exchange rate on app load
   useEffect(() => {
@@ -200,8 +207,8 @@ function App() {
 
   const handleStartNew = () => {
     setCurrentStep(1);
-    setSelectedPackage('furnished');
-    const defaults = getDefaultValues('furnished');
+    setSelectedPackage(initialPackage);
+    const defaults = getDefaultValues(initialPackage);
     setInvestmentInputs({
       furnitureUSD: defaults.furnitureUSD,
       rentUSD: 0, // Reset user input
@@ -272,6 +279,7 @@ function App() {
           <PackageStep
             selectedPackage={selectedPackage}
             onPackageChange={handlePackageChange}
+            isE2Calculator={isE2Calculator}
           />
         );
       case 2:
@@ -292,6 +300,7 @@ function App() {
             exchangeRate={exchangeRate}
             isLiveRate={isLiveRate}
             onStartNew={handleStartNew}
+            isE2Calculator={isE2Calculator}
           />
         );
       default:

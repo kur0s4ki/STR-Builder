@@ -23,9 +23,9 @@ function n(x: number): number {
 
 // Package multipliers for revenue and expenses based on rent
 const PACKAGE_MULTIPLIERS = {
-  furnished: {
-    revenue: 1.58,
-    expenses: 1.16
+  e2: {
+    revenue: 2.3,
+    expenses: 1.27
   },
   unfurnished1: {
     revenue: 2.3,
@@ -210,10 +210,10 @@ export function calculateProfits(
 }
 
 export function getPackageTitle(pkg: Package, section: 'investment' | 'profit'): string {
-  if (pkg === "furnished") {
+  if (pkg === "e2") {
     return section === "investment"
-      ? "FURNISHED PACKAGE (1BR/2BR/3BR) Investment"
-      : "FURNISHED PACKAGE (1BR/2BR/3BR) Profits/ROI";
+      ? "E2 UNFURNISHED PACKAGE (3BR/4BR) Investment"
+      : "E2 UNFURNISHED PACKAGE (3BR/4BR) Profits/ROI";
   }
   if (pkg === "unfurnished1") {
     return section === "investment"

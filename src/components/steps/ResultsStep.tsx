@@ -10,6 +10,7 @@ interface ResultsStepProps {
   exchangeRate: number;
   isLiveRate: boolean;
   onStartNew?: () => void;
+  isE2Calculator: boolean;
 }
 
 type TabType = 'investment' | 'profits' | 'summary' | 'comparison';
@@ -18,7 +19,8 @@ export function ResultsStep({
   package: pkg,
   investmentResults,
   profitResults,
-  onStartNew
+  onStartNew,
+  isE2Calculator
 }: ResultsStepProps) {
   const [activeTab, setActiveTab] = useState<TabType>('summary');
 
@@ -58,7 +60,6 @@ export function ResultsStep({
   const day1Payment = investmentResults.rows.find(r => r.label.includes('Day 1'))?.cadAmount || 0;
   const monthlyNet = profitResults.rows.find(r => r.label.includes('Monthly Net'))?.cadAmount || 0;
   const roiTimeline = profitResults.rows.find(r => r.label.includes('Timeline'))?.cadAmount || 'N/A';
-  const year1Profit = profitResults.rows.find(r => r.label.includes('Year 1'))?.cadAmount || 0;
   const year2ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 2)'))?.cadAmount || 0;
   const year1ROI = profitResults.rows.find(r => r.label.includes('ROI % (Year 1)'))?.cadAmount || 0;
 
@@ -213,7 +214,21 @@ export function ResultsStep({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200/50">
-            {investmentResults.rows.map((row, index) => {
+            {investmentResults.rows
+              .filter(row => {
+                if (isE2Calculator) return true; // Always show all rows for E2
+                // For other calculators, hide rows that have a zero amount, except for specific rows
+                const isZeroAmount = row.cadAmount === 0 || row.cadAmount === '0.00';
+                const isExemptFromHiding = row.label.includes('Total') || row.label.includes('Day 1') || row.label.includes('Additional Investment');
+                if (isZeroAmount && !isExemptFromHiding && row.label !== 'Est. Permits & License') {
+                    return false;
+                }
+                if (row.label === 'Est. Permits & License' && isZeroAmount && !isE2Calculator) {
+                    return false;
+                }
+                return true;
+              })
+            .map((row, index) => {
               const isTotal = row.label.includes('Total');
               const isDay1 = row.label.includes('Day 1');
 
