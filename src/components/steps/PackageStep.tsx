@@ -44,7 +44,7 @@ export function PackageStep({ selectedPackage, onPackageChange }: PackageStepPro
     {
       id: 'unfurnished2' as Package,
       name: 'Unfurnished Package 2',
-      description: '3BR/4BR',
+      description: '1BR/2BR',
       features: [
         'Designed for larger properties',
         'You provide furniture',

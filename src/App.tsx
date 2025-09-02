@@ -46,9 +46,9 @@ const getDefaultValues = (pkg: Package): InvestmentInputs & ProfitInputs => {
         utilityDepositUSD: 350,
         stockingUSD: 0,
         smartLockUSD: 0,
-        permitsUSD: 1100,
+        permitsUSD: 0,
         photosUSD: 0,
-        feeCAD: 9500,
+        feeCAD: 6500,
         monthlyGrossUSD: 5200,
         monthlyExpensesUSD: 2800,
       };
@@ -60,9 +60,9 @@ const getDefaultValues = (pkg: Package): InvestmentInputs & ProfitInputs => {
         utilityDepositUSD: 350,
         stockingUSD: 0,
         smartLockUSD: 0,
-        permitsUSD: 1100,
+        permitsUSD: 0,
         photosUSD: 0,
-        feeCAD: 9500,
+        feeCAD: 6500,
         monthlyGrossUSD: 6950,
         monthlyExpensesUSD: 3700,
       };
