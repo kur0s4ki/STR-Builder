@@ -321,7 +321,7 @@ function App() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 pb-8 sm:pb-16 relative z-10">
+      <main className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 pb-8 sm:pb-20 relative z-10">
         <div className="bg-white/95 backdrop-blur-sm rounded-lg sm:rounded-xl shadow-2xl border border-white/20 overflow-hidden">
           {/* Step Content */}
           <div className="p-4 sm:p-6">
