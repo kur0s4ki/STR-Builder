@@ -44,7 +44,7 @@ export function PackageStep({ selectedPackage, onPackageChange, isE2Calculator }
     {
       id: 'unfurnished2' as Package,
       name: 'Unfurnished 2',
-      description: '1BR/2BR',
+      description: '3BR/4BR',
       features: [
         'Designed for larger properties',
         'You provide furniture',
